@@ -979,33 +979,33 @@ AKAP79_funcJacp<-function(t, state, parameters)
 AKAP79_default<-function(t=0.0)
 {
 	parameters <- vector(mode='numeric',len=28)
-	parameters[1] <- 4.56765525529777
-	parameters[2] <- 0.7363866194561
-	parameters[3] <- 0.103933916507664
-	parameters[4] <- 0.164145836393724
-	parameters[5] <- 0.0610537900055097
-	parameters[6] <- 0.161378942409605
-	parameters[7] <- 0.241714016897036
-	parameters[8] <- 0.0753960796011278
-	parameters[9] <- 0.161378942409605
-	parameters[10] <- 0.0610537900055097
-	parameters[11] <- 0.737123374391628
-	parameters[12] <- 1.16183424272828
-	parameters[13] <- 1.37988477595725
-	parameters[14] <- 0.591555364366815
-	parameters[15] <- 0.174644988966811
-	parameters[16] <- 4.56765525529777
-	parameters[17] <- 0.029510769926749
-	parameters[18] <- 1.51437074069205
-	parameters[19] <- 3.6729677995469
-	parameters[20] <- 0.706805328257749
-	parameters[21] <- 1.35120934153802
-	parameters[22] <- 0.174644988966811
-	parameters[23] <- 0.377192353563157
-	parameters[24] <- 2.74285678634492
-	parameters[25] <- 2
-	parameters[26] <- 0
-	parameters[27] <- -0.155
+	parameters[1] <- 33.0369541036815
+	parameters[2] <- 0.494310686986835
+	parameters[3] <- 0.00544502652842421
+	parameters[4] <- 0.0155955250282695
+	parameters[5] <- 0.00159955802861467
+	parameters[6] <- 0.0149968483550237
+	parameters[7] <- 0.0380189396320561
+	parameters[8] <- 0.00260015956316527
+	parameters[9] <- 0.0149968483550237
+	parameters[10] <- 0.00159955802861467
+	parameters[11] <- 0.49545019080479
+	parameters[12] <- 1.41253754462275
+	parameters[13] <- 2.09893988362352
+	parameters[14] <- 0.298538261891796
+	parameters[15] <- 0.0179887091512879
+	parameters[16] <- 33.0369541036815
+	parameters[17] <- 0.000299916251898765
+	parameters[18] <- 2.60015956316527
+	parameters[19] <- 19.9986186963274
+	parameters[20] <- 0.449779854893288
+	parameters[21] <- 1.99986186963274
+	parameters[22] <- 0.0179887091512879
+	parameters[23] <- 0.105925372517729
+	parameters[24] <- 10.2093948370768
+	parameters[25] <- 100
+	parameters[26] <- 1
+	parameters[27] <- 0.699841996002273
 	parameters[28] <- 0
 	names(parameters) <- c("k5_1", "k1_2", "k3_2", "k2_3", "k3_4", "k4_3", "k4_1", "k1_4", "k8_7", "k7_8", "k5_6", "k6_5", "k8_5", "k7_6", "k6_7", "k6_2", "k5_8", "AKAPoff_1", "AKAPoff_3", "AKAPon_1", "AKAPon_3", "kf_C_AKAR4", "kb_C_AKAR4", "kcat_AKARp", "kmOFF", "kmON", "KD_T", "b_AKAP")
 	return(parameters);
