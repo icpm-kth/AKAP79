@@ -2,19 +2,13 @@ loadNamespace("SBtabVFGEN")
 loadNamespace("rgsl")
 loadNamespace("errors")
 
-preparePlots <- function(files, beta=1.0){
-	if (length(files)>20){
-		cat(head(files),sep="\n")
-		cat("[...]\n")
-		cat(tail(files),sep="\n")
-	} else {
-		cat(files,sep="\n")
-	}
+## this gets one sample matrix:
+sampleQuality <- function(x){
+	stopifnot(NROW(x)>NCOL(x))
 	## load sbtab and experiments
 	sb <- SBtabVFGEN::sbtab_from_tsv(dir("..",pattern="tsv$",full.names=TRUE))
 	ex <- SBtabVFGEN::sbtab.data(sb)
-	## find a good prefix for filenames, a common bit in a ll file-names
-	prefix <- uqsa::determinePrefix(files)
+	if (is.null(colnames(x))) colnames(x) <- rownames(sb$Parameter)
 	modelName <- uqsa::checkModel(comment(sb),sprintf("./%s.so",comment(sb)))
 	## load the sample of the requested temperature
 	x <- uqsa::gatherSample(files,beta=1.0)
@@ -38,7 +32,7 @@ preparePlots <- function(files, beta=1.0){
 	a <- mean(as.numeric(diff(sort(l))>1e-13))
 
 	s <- uqsa::simulator.c(ex,modelName,parMap=uqsa::log10ParMap)
-	i <- seq(ceiling(N/4),N,by=ceiling(tau+1.0/a))
+	i <- seq(ceiling(N/4),N,by=ceiling(as.numeric(tau)+1.0/a))
 	X <- x[i,]
 	L <- l[i]
 
@@ -50,5 +44,21 @@ preparePlots <- function(files, beta=1.0){
 	for (i in seq_along(y)){
 		rownames(y[[i]]$state) <- rownames(sb$Compound)
 	}
-	return(list(sample=Xo,tau=tau,simulations=y,sbtab=sb,experiments=ex, prefix=prefix))
+	return(list(sample=Xo,tau=tau,simulations=y,sbtab=sb,experiments=ex))
+}
+
+
+## this gets many files
+manyFilesSample <- function(files, beta=1.0){
+	if (length(files)>20){
+		cat(head(files),sep="\n")
+		cat("[...]\n")
+		cat(tail(files),sep="\n")
+	} else {
+		cat(files,sep="\n")
+	}
+	x <- uqsa::gatherSample(files,beta=1.0)
+	q <- sampleQuality(x)
+	comment(q) <- uqsa::determinePrefix(files)
+	return(q)
 }
