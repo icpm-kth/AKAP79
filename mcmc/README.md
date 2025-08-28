@@ -11,7 +11,12 @@ There are two sets of options:
 Here is a command that can be used to perform sampling, with explanations:
 
 ```sh
+                                                    prefix string
+                                                 for created RDS files
+                                                    ╭─────┴─────╮
 mpirun -H localhost:8 -N 8 ./smmala.R -N 10000 -c 6 --prefix test | tee smmala.log
+       ╰────────┬────────╯            ╰────────────┬────────────╯
+            MPI Options                   R Script's Options
 ```
 
 Of course mpirun is one of several alternative MPI implementations,

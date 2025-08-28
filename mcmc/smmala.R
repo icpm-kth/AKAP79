@@ -168,15 +168,15 @@ for (i in seq(cycl)){
 	s <- ptSMMALA(x,sampleSize[i],0.25*h)
 	pbdMPI::barrier()
 	##
-	cat(
-		sprintf("rank %*i/%i finished %*i iterations on cycle %*i with acceptance rate of %3i %% and swap rate of %3i %% (step-size is %g).\n",
-			scale(cs),r,cs,
-			scale(tail(sampleSize,1)),sampleSize[i],
-			scale(cycl),i,round(100*attr(s,"acceptanceRate")),
-			round(100*attr(s,"swapRate")),
-			h
-		)
-	)
+	## cat(
+	## 	sprintf("rank %*i/%i finished %*i iterations on cycle %*i with acceptance rate of %3i %% and swap rate of %3i %% (step-size is %g).\n",
+	## 		scale(cs),r,cs,
+	## 		scale(tail(sampleSize,1)),sampleSize[i],
+	## 		scale(cycl),i,round(100*attr(s,"acceptanceRate")),
+	## 		round(100*attr(s,"swapRate")),
+	## 		h
+	## 	)
+	## )
 	commonName <- sprintf("%s-%s-branch-Sample-%03x%s-cycle-%0*i",
 		PREFIX,
 		Branch,
