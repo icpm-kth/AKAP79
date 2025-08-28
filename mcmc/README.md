@@ -10,7 +10,7 @@ There are two sets of options:
 
 Here is a command that can be used to perform sampling, with explanations:
 
-```sh
+```
                                                     prefix string
                                                  for created RDS files
                                                     ╭─────┴─────╮
@@ -51,6 +51,24 @@ Few, but big samples:
 ```sh
 mpirun -H localhost:8 -N 8 ./smmala.R -N 60000 -c 4 --prefix few-files | tee smmala.log
 ```
+
+With a number of cycles of `-c 12` and requested final sample of `-N
+$((2**16))`, the sequence of samples will start arbitrarily at `1000`
+and increase like this:
+
+```
+                                       burn-in (22%)
+                                    ╭───────┴──────╮
+1000  1463  2139  3129  4577  6694  9791 14320 20945 30635 44807 65536
+╰────────────────┬───────────────╯                   ╰───────┬───────╯
+     step size tuning (19002, 9%)                    final sample (69%)
+```
+
+where the division between _burn-in_ and _final sample_ is up to the
+user.  The last sample, with 65536 rows, will be saved separatey, in a
+dedicated file, collected in such a way that each file has exactly one
+parallel tempering temperature. All files before that save samples by
+MPI-rank (with a mixture of temperatures).
 
 ## Find Number of Cores
 
