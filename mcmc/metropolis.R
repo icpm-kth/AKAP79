@@ -1,4 +1,5 @@
 #!/usr/bin/env Rscript
+
 ## ----setup--------------------------------------------------------------------
 library(uqsa)
 library(parallel)
@@ -15,20 +16,21 @@ pbdMPI::init()
 attr(comm,"rank") <- r
 attr(comm,"size") <- cs
 
-scale <- \(x) as.integer(round(log10(x))+1)
-
 # random number seed:
 
 set.seed(137*r + 1337*cs)
 R <- round(cs/2)
 
 N <- 10000
-h <- 1e-2
+h <- 2e-2
 cycl <- 7
-PREFIX <- "main"
+PREFIX <- system2("date",args=c("--iso-8601"),stdout=TRUE)
 ## possibly adjust sampling-settings
 a <- commandArgs(trailingOnly=TRUE)
-if (!is.null(a) && length(a)>0 && length(a) %% 2 == 0){
+if (!is.null(a) && length(a)>0){
+	if (length(a)%%2 != 0) {
+		warning("an option (key-value-pairs) is missing the value.")
+	}
 	for (i in seq(1,length(a),by=2)){
 		key = a[i]
 		val = a[i+1]
@@ -60,19 +62,6 @@ suppressMessages(
 )
 
 experiments <- sbtab.data(sb)
-
-for (i in seq_along(experiments)){
-	t_ <- experiments[[i]]$outputTimes
-	nt <- length(t_)
-	D <- t(experiments[[i]]$outputValues)
-	D[is.na(D)] <- 0.0
-	SD <- t(experiments[[i]]$errorValues) ## or: D*0.05+apply(D,1,FUN=max,na.rm=TRUE)*0.05
-	SD[is.na(SD)] <- Inf
-	experiments[[i]]$time <- t_
-	experiments[[i]]$data <- D
-	experiments[[i]]$stdv <- SD
-}
-
 options(mc.cores = length(experiments))
 ## ----default------------------------------------------------------------------
 n <- length(experiments[[1]]$input)
@@ -80,6 +69,7 @@ n <- length(experiments[[1]]$input)
 stopifnot(all(startsWith(trimws(sb$Parameter[["!Scale"]]),"log10")))
 Median <- sb$Parameter[["!Median"]]
 parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
+names(parMCMC) <- rownames(sb$Parameter)
 stdv <- sb$Parameter[["!Std"]]              # this as well
 if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
@@ -87,50 +77,37 @@ if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 }
 dprior <- dNormalPrior(mean=Median,sd=stdv)
 rprior <- rNormalPrior(mean=Median,sd=stdv)
-gprior <- gradLog_NormalPrior(mean=Median,sd=stdv)
-
-## log-likelihood
-llf <- function(parMCMC){
-	return(sum(sapply(attr(parMCMC,"simulations"),\(y) y$logLikelihood)))
-}
-
-## gradient of the log-likelihood
-gllf <- function(parMCMC){
-	i <- seq_along(parMCMC)
-	J <- log10ParMapJac(parMCMC)
-	return(as.numeric(rowSums(sapply(attr(parMCMC,"simulations"),\(y) y$gradLogLikelihood))[i] %*% J))
-}
-
-## Fisher Information
-fi <- function(parMCMC){
-	i <- seq_along(parMCMC)
-	J <- log10ParMapJac(parMCMC)
-	fi <- rowSums(sapply(attr(parMCMC,"simulations"),\(y) y$FisherInformation[i,i,1],simplify="array"),dims=2) # sums over 3rd dimension
-	return(t(J) %*% fi %*% J)
-}
-
-fiPrior <- solve(diag(stdv, length(parMCMC)))
-
 ## ----simulate-----------------------------------------------------------------
-sim <- simfi(experiments,modelName,log10ParMap)
+sim <- simcf(experiments,modelName,log10ParMap)
+
+llf <- logLikelihoodFunc(experiments)
 
 X <- NULL # this is to suppress one intial warning
-sampleSize <- round(exp(seq(log(1000),log(N),length.out=cycl)))
+sampleSize <- round(exp(seq(log(100),log(N),length.out=cycl)))
+
+## save the chosen settings for this run
+save(
+	R,dprior,rprior,Median,parMCMC,stdv,experiments,sim,llf,sb,sampleSize,Branch,a,
+	file=sprintf("%s-%s-branch-%s-settings.Rdata",
+		PREFIX,
+		Branch,
+		shortHash)
+)
 
 ## ----sample-------------------------------------------------------------------
-smmala <- mcmcUpdate(
+metropolis <- mcmcUpdate(
 	simulate=sim,
 	experiments=experiments,
 	logLikelihood=llf,
-	dprior=dprior,
-	gradLogLikelihood=gllf,
-	gprior=gprior,
-	fisherInformation=fi,
-	fisherInformationPrior=fiPrior
+	dprior=dprior
 )
-serialSMMALA <- mcmc(smmala)
-ptSMMALA <- mcmc_mpi(smmala,comm=comm,swapFunc=pbdMPI_bcast_reduce_temperatures)
-
+mhmcmc <- mcmc(metropolis) # sequential version for step-size tuning
+ptMetropolis <- mcmc_mpi(
+	metropolis,
+	comm=comm,
+	swapDelay=0,
+	swapFunc=pbdMPI_bcast_reduce_temperatures
+)
 for (i in seq(cycl)){
 	rm(X)
 	x <- mcmcInit(
@@ -138,18 +115,16 @@ for (i in seq(cycl)){
 		parMCMC,
 		simulate=sim,
 		logLikelihood=llf,
-		dprior,
-		gllf,
-		gprior,
-		fi
+		dprior
 	)
+	names(x) <- rownames(sb$Parameter)
 	if (i < round(cycl/2)){
 		for (k in seq(5)){
-			s <- serialSMMALA(x,100,h)
+			s <- mhmcmc(x,100,h)
 			ar <- attr(s,"acceptanceRate")
 			ml <- max(attr(s,"logLikelihood"))
 			message(
-				sprintf("[smmala-r%0*ic%0*ik%i] h=%6g, a=%.2f, β=%7g, ml=%g",
+				sprintf("[metropolis-r%0*ic%0*ik%i] h=%6g, a=%.2f, β=%7g, ml=%g",
 					as.integer(round(log10(cs)))+1,as.integer(r),
 					as.integer(round(log10(cycl)))+1,as.integer(i),
 					k,
@@ -159,19 +134,17 @@ for (i in seq(cycl)){
 					ml
 				)
 			)
-			h <- h * (0.5 + ar^4/(0.5^4 + ar^4)) # 0.25 is the target acceptance value
-			x <- attr(s,"lastPoint")
+			h <- h * (0.5 + ar^4/(0.25^4 + ar^4)) # 0.25 is the target acceptance value
 		}
 	}
-	pbdMPI::barrier()
 	## This is where the main amount of work is done:
-	s <- ptSMMALA(x,sampleSize[i],0.25*h)
-	pbdMPI::barrier()
+	s <- ptMetropolis(x,sampleSize[i],h/2)
+	##
 	commonName <- sprintf("%s-%s-branch-Sample",
 		PREFIX,
 		Branch
 	)
-	sid <- round(i*cs+r) # a sequential id number that increases with iteration i and rank
+	sid <- round(i*cs+r)
 	maxsid <- round(cycl*cs+r)
 	sampleFile=sprintf("%s-%0*x%s-cycle-%0*i-rank-%0*i-of-%0*i.RDS",
 		commonName,
@@ -179,8 +152,8 @@ for (i in seq(cycl)){
 		shortHash,
 		scale(cycl),i,
 		scale(cs),r,
-		scale(cs),cs)
-	saveRDS(s,file=sampleFile)
+		scale(cs),cs
+		)
 	saveRDS(s,file=sampleFile)
 	## free up memory for next sample
 	ar <- as.integer(round(100*attr(s,"acceptanceRate")))
@@ -188,11 +161,17 @@ for (i in seq(cycl)){
 	rm(s)
 	gc()
 	pbdMPI::barrier()
-	f <- dir(pattern=sprintf("^%s-.*-rank-[0-9]+-of-%0*i[.]RDS$",commonName,scale(cs),cs))
+	f <- dir(pattern=sprintf(
+		"^%s-.*-cycle-%0*i-rank-[0-9]+-of-%0*i[.]RDS$",
+		commonName,
+		scale(cycl),i,
+		scale(cs),cs)
+	)
 	X <- uqsa::gatherSample(f,beta)
 	effar <- as.integer(round(100*mean(diff(sort(attr(X,"logLikelihood")))>1e-14)))
 	attr(X,"beta") <- beta
 	parMCMC <- as.numeric(tail(X,1))
+	names(parMCMC) <- rownames(sb$Parameter)
 	cat(
 		sprintf("rank %*i/%i finished %*i iterations on cycle %*i with acc. rate of %3i %% and swap rate of %3i %% (log10(step-size) is %5.4f) and acc. rate %3i %% for β=%g.\n",
 			scale(cs),r,
@@ -207,8 +186,15 @@ for (i in seq(cycl)){
 		)
 	)
 }
-saveRDS(X,file=sprintf("%s-final-sample-%i-%i-lb100-%i.RDS",PREFIX,r,cs,round(log(beta)*100)))
 time_ <- difftime(Sys.time(),start_time,units="min")
+saveRDS(X,
+	file=sprintf("%s-final-sample-%i-%i-lb100-%i-duration-%i-minutes.RDS",
+		PREFIX,
+		r,cs,
+		round(log(beta)*100),
+		round(time_)
+	)
+)
 print(time_)
 finalize()
 print(warnings())
