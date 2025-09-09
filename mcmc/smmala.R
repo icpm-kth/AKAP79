@@ -167,23 +167,16 @@ for (i in seq(cycl)){
 	## This is where the main amount of work is done:
 	s <- ptSMMALA(x,sampleSize[i],0.25*h)
 	pbdMPI::barrier()
-	##
-	## cat(
-	## 	sprintf("rank %*i/%i finished %*i iterations on cycle %*i with acceptance rate of %3i %% and swap rate of %3i %% (step-size is %g).\n",
-	## 		scale(cs),r,cs,
-	## 		scale(tail(sampleSize,1)),sampleSize[i],
-	## 		scale(cycl),i,round(100*attr(s,"acceptanceRate")),
-	## 		round(100*attr(s,"swapRate")),
-	## 		h
-	## 	)
-	## )
-	commonName <- sprintf("%s-%s-branch-Sample-%03x%s-cycle-%0*i",
+	commonName <- sprintf("%s-%s-branch-Sample",
 		PREFIX,
-		Branch,
-		round(i*cs+r),
+		Branch
+	)
+	sid <- round(i*cs+r) # a sequential id number that increases with iteration i and rank
+	sampleFile=sprintf("%s-%*x%s-cycle-%0*i-rank-%0*i-of-%0*i.RDS",
+		commonName,
+		scale(sid),sid,
 		shortHash,
-		scale(cycl),i)
-	sampleFile=sprintf("%s-rank-%0*i-of-%0*i.RDS",commonName,
+		scale(cycl),i,
 		scale(cs),r,
 		scale(cs),cs)
 	saveRDS(s,file=sampleFile)
@@ -194,7 +187,7 @@ for (i in seq(cycl)){
 	rm(s)
 	gc()
 	pbdMPI::barrier()
-	f <- dir(pattern=sprintf("^%s-rank-.*-of-%0*i[.]RDS$",commonName,scale(cs),cs))
+	f <- dir(pattern=sprintf("^%s-.*-rank-[0-9]+-of-%0*i[.]RDS$",commonName,scale(cs),cs))
 	X <- uqsa::gatherSample(f,beta)
 	effar <- as.integer(round(100*mean(diff(sort(attr(X,"logLikelihood")))>1e-14)))
 	attr(X,"beta") <- beta
