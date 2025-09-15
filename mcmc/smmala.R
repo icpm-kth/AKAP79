@@ -159,7 +159,7 @@ for (i in seq(cycl)){
 					ml
 				)
 			)
-			h <- h * (0.5 + ar^4/(0.5^4 + ar^4)) # 0.25 is the target acceptance value
+			h <- h * (0.5 + ar^4/(0.5^4 + ar^4)) # 0.5 is the target acceptance value
 			x <- attr(s,"lastPoint")
 		}
 	}

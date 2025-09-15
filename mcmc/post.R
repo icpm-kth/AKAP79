@@ -10,10 +10,6 @@ sampleQuality <- function(x){
 	ex <- SBtabVFGEN::sbtab.data(sb)
 	if (is.null(colnames(x))) colnames(x) <- rownames(sb$Parameter)
 	modelName <- uqsa::checkModel(comment(sb),sprintf("./%s.so",comment(sb)))
-	## load the sample of the requested temperature
-	x <- uqsa::gatherSample(files,beta=1.0)
-	colnames(x) <- rownames(sb$Parameter)
-	## get the log-likelihood values
 	l <- attr(x,"logLikelihood")
 	plot(l,type="l")
 	N <- length(l)

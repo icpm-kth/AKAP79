@@ -197,4 +197,3 @@ saveRDS(X,
 )
 print(time_)
 finalize()
-print(warnings())
