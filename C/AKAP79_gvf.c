@@ -433,12 +433,12 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	jac_[145] = Rii_C*k5_6; /* [9, 1] */
 /* column 3 (df/dy_2) */
 	jac_[18] = -cAMP*k4_3; /* [1, 2] */
-	jac_[34] = (-CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF))-cAMP*k4_3-C*k4_1; /* [2, 2] */
+	jac_[34] = (-CaN*k4_4p)-cAMP*k4_3-C*k4_1; /* [2, 2] */
 	jac_[66] = cAMP*k4_3; /* [4, 2] */
 	jac_[82] = C*k4_1; /* [5, 2] */
 	jac_[114] = -C*k4_1; /* [7, 2] */
-	jac_[162] = -CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [10, 2] */
-	jac_[178] = CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [11, 2] */
+	jac_[162] = -CaN*k4_4p; /* [10, 2] */
+	jac_[178] = CaN*k4_4p; /* [11, 2] */
 /* column 4 (df/dy_3) */
 	jac_[3] = k5_8; /* [0, 3] */
 	jac_[19] = -cAMP*k5_6; /* [1, 3] */
@@ -449,11 +449,11 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 /* column 5 (df/dy_4) */
 	jac_[20] = k3_4; /* [1, 4] */
 	jac_[36] = k3_4; /* [2, 4] */
-	jac_[68] = (-CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF))-k3_4-C*k3_2; /* [4, 4] */
+	jac_[68] = (-k3_4)-CaN*k3_3p-C*k3_2; /* [4, 4] */
 	jac_[100] = C*k3_2; /* [6, 4] */
 	jac_[116] = -C*k3_2; /* [7, 4] */
-	jac_[164] = -CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [10, 4] */
-	jac_[196] = CaN*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [12, 4] */
+	jac_[164] = -CaN*k3_3p; /* [10, 4] */
+	jac_[196] = CaN*k3_3p; /* [12, 4] */
 /* column 6 (df/dy_5) */
 	jac_[21] = -cAMP*k1_2; /* [1, 5] */
 	jac_[37] = k1_4; /* [2, 5] */
@@ -461,10 +461,10 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	jac_[101] = cAMP*k1_2; /* [6, 5] */
 	jac_[117] = k1_4; /* [7, 5] */
 /* column 7 (df/dy_6) */
-	jac_[22] = KD_T*k1_2; /* [1, 6] */
+	jac_[22] = k2_1; /* [1, 6] */
 	jac_[70] = k2_3; /* [4, 6] */
-	jac_[86] = KD_T*k1_2; /* [5, 6] */
-	jac_[102] = (-k2_3)-KD_T*k1_2; /* [6, 6] */
+	jac_[86] = k2_1; /* [5, 6] */
+	jac_[102] = (-k2_3)-k2_1; /* [6, 6] */
 	jac_[118] = k2_3; /* [7, 6] */
 /* column 8 (df/dy_7) */
 	jac_[7] = -Rii*k8_5; /* [0, 7] */
@@ -492,21 +492,21 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	jac_[137] = k6_7; /* [8, 9] */
 	jac_[153] = (-k6_7)-k6_5-k6_2; /* [9, 9] */
 /* column 11 (df/dy_10) */
-	jac_[42] = -RiiP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [2, 10] */
-	jac_[74] = -RiiP_cAMP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [4, 10] */
-	jac_[170] = (-RiiP_cAMP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF))-RiiP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [10, 10] */
-	jac_[186] = RiiP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [11, 10] */
-	jac_[202] = RiiP_cAMP*((b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmON+((1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/kmOFF); /* [12, 10] */
+	jac_[42] = -RiiP*k4_4p; /* [2, 10] */
+	jac_[74] = -RiiP_cAMP*k3_3p; /* [4, 10] */
+	jac_[170] = (-RiiP*k4_4p)-RiiP_cAMP*k3_3p; /* [10, 10] */
+	jac_[186] = RiiP*k4_4p; /* [11, 10] */
+	jac_[202] = RiiP_cAMP*k3_3p; /* [12, 10] */
 /* column 12 (df/dy_11) */
-	jac_[11] = AKAPon_1*b_AKAP+AKAPoff_1*(1-b_AKAP); /* [0, 11] */
-	jac_[43] = AKAPon_3*b_AKAP+AKAPoff_3*(1-b_AKAP); /* [2, 11] */
-	jac_[171] = AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP); /* [10, 11] */
-	jac_[187] = (-AKAPon_3*b_AKAP)-AKAPon_1*b_AKAP-AKAPoff_3*(1-b_AKAP)-AKAPoff_1*(1-b_AKAP); /* [11, 11] */
+	jac_[11] = k4p_8; /* [0, 11] */
+	jac_[43] = k4p_4; /* [2, 11] */
+	jac_[171] = k4p_8+k4p_4; /* [10, 11] */
+	jac_[187] = (-k4p_8)-k4p_4; /* [11, 11] */
 /* column 13 (df/dy_12) */
-	jac_[76] = AKAPon_3*b_AKAP+AKAPoff_3*(1-b_AKAP); /* [4, 12] */
-	jac_[140] = AKAPon_1*b_AKAP+AKAPoff_1*(1-b_AKAP); /* [8, 12] */
-	jac_[172] = AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP); /* [10, 12] */
-	jac_[204] = (-AKAPon_3*b_AKAP)-AKAPon_1*b_AKAP-AKAPoff_3*(1-b_AKAP)-AKAPoff_1*(1-b_AKAP); /* [12, 12] */
+	jac_[76] = k3p_3; /* [4, 12] */
+	jac_[140] = k3p_7; /* [8, 12] */
+	jac_[172] = k3p_7+k3p_3; /* [10, 12] */
+	jac_[204] = (-k3p_7)-k3p_3; /* [12, 12] */
 /* column 14 (df/dy_13) */
 	jac_[125] = -C*kf_C_AKAR4; /* [7, 13] */
 	jac_[221] = -C*kf_C_AKAR4; /* [13, 13] */
@@ -596,9 +596,9 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	jacp_[84] = -Rii_C; /* [3, 0] */
 	jacp_[140] = Rii_C; /* [5, 0] */
 /* column 2 (df/dp_1) */
-	jacp_[29] = KD_T*RiiP_C_cAMP-RiiP_C*cAMP; /* [1, 1] */
-	jacp_[141] = KD_T*RiiP_C_cAMP-RiiP_C*cAMP; /* [5, 1] */
-	jacp_[169] = RiiP_C*cAMP-KD_T*RiiP_C_cAMP; /* [6, 1] */
+	jacp_[29] = -RiiP_C*cAMP; /* [1, 1] */
+	jacp_[141] = -RiiP_C*cAMP; /* [5, 1] */
+	jacp_[169] = RiiP_C*cAMP; /* [6, 1] */
 /* column 3 (df/dp_2) */
 	jacp_[114] = -C*RiiP_cAMP; /* [4, 2] */
 	jacp_[170] = C*RiiP_cAMP; /* [6, 2] */
@@ -659,33 +659,9 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	jacp_[100] = -Rii_C; /* [3, 16] */
 	jacp_[212] = Rii_C; /* [7, 16] */
 /* column 18 (df/dp_17) */
-	jacp_[17] = RiiP_CaN*(1-b_AKAP); /* [0, 17] */
-	jacp_[73] = -CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF); /* [2, 17] */
-	jacp_[129] = -CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF); /* [4, 17] */
-	jacp_[241] = RiiP_cAMP_CaN*(1-b_AKAP); /* [8, 17] */
-	jacp_[297] = (-CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF))-CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)+RiiP_cAMP_CaN*(1-b_AKAP)+RiiP_CaN*(1-b_AKAP); /* [10, 17] */
-	jacp_[325] = CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)-RiiP_CaN*(1-b_AKAP); /* [11, 17] */
-	jacp_[353] = CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)-RiiP_cAMP_CaN*(1-b_AKAP); /* [12, 17] */
 /* column 19 (df/dp_18) */
-	jacp_[74] = RiiP_CaN*(1-b_AKAP)-CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF); /* [2, 18] */
-	jacp_[130] = RiiP_cAMP_CaN*(1-b_AKAP)-CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF); /* [4, 18] */
-	jacp_[298] = (-CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF))-CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)+RiiP_cAMP_CaN*(1-b_AKAP)+RiiP_CaN*(1-b_AKAP); /* [10, 18] */
-	jacp_[326] = CaN*RiiP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)-RiiP_CaN*(1-b_AKAP); /* [11, 18] */
-	jacp_[354] = CaN*RiiP_cAMP*(((1-b_AKAP)*b_AKAP)/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)-RiiP_cAMP_CaN*(1-b_AKAP); /* [12, 18] */
 /* column 20 (df/dp_19) */
-	jacp_[19] = RiiP_CaN*b_AKAP; /* [0, 19] */
-	jacp_[75] = -CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF); /* [2, 19] */
-	jacp_[131] = -CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF); /* [4, 19] */
-	jacp_[243] = RiiP_cAMP_CaN*b_AKAP; /* [8, 19] */
-	jacp_[299] = (-CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF))-CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)+RiiP_cAMP_CaN*b_AKAP+RiiP_CaN*b_AKAP; /* [10, 19] */
-	jacp_[327] = CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)-RiiP_CaN*b_AKAP; /* [11, 19] */
-	jacp_[355] = CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)-RiiP_cAMP_CaN*b_AKAP; /* [12, 19] */
 /* column 21 (df/dp_20) */
-	jacp_[76] = RiiP_CaN*b_AKAP-CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF); /* [2, 20] */
-	jacp_[132] = RiiP_cAMP_CaN*b_AKAP-CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF); /* [4, 20] */
-	jacp_[300] = (-CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF))-CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)+RiiP_cAMP_CaN*b_AKAP+RiiP_CaN*b_AKAP; /* [10, 20] */
-	jacp_[328] = CaN*RiiP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)-RiiP_CaN*b_AKAP; /* [11, 20] */
-	jacp_[356] = CaN*RiiP_cAMP*(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)-RiiP_cAMP_CaN*b_AKAP; /* [12, 20] */
 /* column 22 (df/dp_21) */
 	jacp_[217] = -AKAR4*C; /* [7, 21] */
 	jacp_[385] = -AKAR4*C; /* [13, 21] */
@@ -699,29 +675,9 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	jacp_[415] = -AKAR4_C; /* [14, 23] */
 	jacp_[443] = AKAR4_C; /* [15, 23] */
 /* column 25 (df/dp_24) */
-	jacp_[80] = (CaN*RiiP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF); /* [2, 24] */
-	jacp_[136] = (CaN*RiiP_cAMP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF); /* [4, 24] */
-	jacp_[304] = (CaN*RiiP_cAMP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF)+(CaN*RiiP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF); /* [10, 24] */
-	jacp_[332] = -(CaN*RiiP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF); /* [11, 24] */
-	jacp_[360] = -(CaN*RiiP_cAMP*(1-b_AKAP)*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmOFF); /* [12, 24] */
 /* column 26 (df/dp_25) */
-	jacp_[81] = (CaN*RiiP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON); /* [2, 25] */
-	jacp_[137] = (CaN*RiiP_cAMP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON); /* [4, 25] */
-	jacp_[305] = (CaN*RiiP_cAMP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON)+(CaN*RiiP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON); /* [10, 25] */
-	jacp_[333] = -(CaN*RiiP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON); /* [11, 25] */
-	jacp_[361] = -(CaN*RiiP_cAMP*b_AKAP*(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP)))/gsl_pow_2(kmON); /* [12, 25] */
 /* column 27 (df/dp_26) */
-	jacp_[54] = RiiP_C_cAMP*k1_2; /* [1, 26] */
-	jacp_[166] = RiiP_C_cAMP*k1_2; /* [5, 26] */
-	jacp_[194] = -RiiP_C_cAMP*k1_2; /* [6, 26] */
 /* column 28 (df/dp_27) */
-	jacp_[27] = (AKAPon_1-AKAPoff_1)*RiiP_CaN; /* [0, 27] */
-	jacp_[83] = (AKAPon_3-AKAPoff_3)*RiiP_CaN-CaN*RiiP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF); /* [2, 27] */
-	jacp_[139] = (AKAPon_3-AKAPoff_3)*RiiP_cAMP_CaN-CaN*RiiP_cAMP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF); /* [4, 27] */
-	jacp_[251] = (AKAPon_1-AKAPoff_1)*RiiP_cAMP_CaN; /* [8, 27] */
-	jacp_[307] = (-CaN*RiiP_cAMP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF))-CaN*RiiP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF)+(AKAPon_3-AKAPoff_3)*RiiP_cAMP_CaN+(AKAPon_1-AKAPoff_1)*RiiP_cAMP_CaN+(AKAPon_3-AKAPoff_3)*RiiP_CaN+(AKAPon_1-AKAPoff_1)*RiiP_CaN; /* [10, 27] */
-	jacp_[335] = CaN*RiiP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF)-(AKAPon_3-AKAPoff_3)*RiiP_CaN-(AKAPon_1-AKAPoff_1)*RiiP_CaN; /* [11, 27] */
-	jacp_[363] = CaN*RiiP_cAMP*((AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmON+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*b_AKAP)/kmON-(AKAPon_3*b_AKAP+AKAPon_1*b_AKAP+AKAPoff_3*(1-b_AKAP)+AKAPoff_1*(1-b_AKAP))/kmOFF+((AKAPon_3+AKAPon_1-AKAPoff_3-AKAPoff_1)*(1-b_AKAP))/kmOFF)-(AKAPon_3-AKAPoff_3)*RiiP_cAMP_CaN-(AKAPon_1-AKAPoff_1)*RiiP_cAMP_CaN; /* [12, 27] */
 	return GSL_SUCCESS;
 }
 /* ode Functions F(t,y;p) */
@@ -1000,33 +956,33 @@ int AKAP79_default(double t, void *par)
 	double *p_=par;
 	if (!p_) return 28;
 	memset(p_,0,sizeof(double)*numParam);
-	p_[_k5_1] = 33.0369541036815;
-	p_[_k1_2] = 0.494310686986835;
-	p_[_k3_2] = 0.00544502652842421;
-	p_[_k2_3] = 0.0155955250282695;
-	p_[_k3_4] = 0.00159955802861467;
-	p_[_k4_3] = 0.0149968483550237;
-	p_[_k4_1] = 0.0380189396320561;
-	p_[_k1_4] = 0.00260015956316527;
-	p_[_k8_7] = 0.0149968483550237;
-	p_[_k7_8] = 0.00159955802861467;
-	p_[_k5_6] = 0.49545019080479;
-	p_[_k6_5] = 1.41253754462275;
-	p_[_k8_5] = 2.09893988362352;
-	p_[_k7_6] = 0.298538261891796;
-	p_[_k6_7] = 0.0179887091512879;
-	p_[_k6_2] = 33.0369541036815;
-	p_[_k5_8] = 0.000299916251898765;
-	p_[_AKAPoff_1] = 2.60015956316527;
-	p_[_AKAPoff_3] = 19.9986186963274;
-	p_[_AKAPon_1] = 0.449779854893288;
-	p_[_AKAPon_3] = 1.99986186963274;
-	p_[_kf_C_AKAR4] = 0.0179887091512879;
-	p_[_kb_C_AKAR4] = 0.105925372517729;
-	p_[_kcat_AKARp] = 10.2093948370768;
-	p_[_kmOFF] = 100;
-	p_[_kmON] = 1;
-	p_[_KD_T] = 0.699841996002273;
+	p_[_k5_1] = 27.5810649510547;
+	p_[_k1_2] = 0.666326718434081;
+	p_[_k3_2] = 0.00642886621252059;
+	p_[_k2_3] = 0.379528434451198;
+	p_[_k3_4] = 0.00204394658934062;
+	p_[_k4_3] = 0.0107829529443725;
+	p_[_k4_1] = 0.0217416952494758;
+	p_[_k1_4] = 0.061393382822672;
+	p_[_k8_7] = 0.0105642959474346;
+	p_[_k7_8] = 0.00276544425172156;
+	p_[_k5_6] = 0.423118867889355;
+	p_[_k6_5] = 1.11008410461577;
+	p_[_k8_5] = 0.293240312734473;
+	p_[_k7_6] = 0.0819612952458447;
+	p_[_k6_7] = 0.0180929240864736;
+	p_[_k6_2] = 28.492534315686;
+	p_[_k5_8] = 0.000233128563695041;
+	p_[_AKAPoff_1] = 0.385278106633493;
+	p_[_AKAPoff_3] = 20.0899150804214;
+	p_[_AKAPon_1] = 0.440571846156413;
+	p_[_AKAPon_3] = 1.43857874396821;
+	p_[_kf_C_AKAR4] = 0.0187909984185588;
+	p_[_kb_C_AKAR4] = 0.108227533995812;
+	p_[_kcat_AKARp] = 10.0368571481757;
+	p_[_kmOFF] = 138.733724924014;
+	p_[_kmON] = 0.983975776254628;
+	p_[_KD_T] = 0.590517072413512;
 	return GSL_SUCCESS;
 }
 /* ode initial values */
