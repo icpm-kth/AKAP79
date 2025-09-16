@@ -69,12 +69,41 @@ errorBars <- function(x,y,e,...){
 	points(x,y,...)
 }
 
-makePlots <- function(Q){
+#' this function tags the number as being in centimeters
+#' @param x a numer
+#' @return a number with attributes describing the unit
+cm <- function(x){
+	attr(x,"kind") <- "m"
+	attr(x,"scale") <- -2
+	attr(x,"exponent") <- 1
+	return(x)
+}
+
+#' unit conversion helper function
+#'
+#' currently only converts between meters and inches, more to add
+#' later.
+#'
+#' @param value some value with unit attributes
+#' @param unit desired unit
+#' @return a value in changed units
+`%as%` <- function(value,unit){
+	y <- value
+	if (unit == "inches") {
+		stopifnot(attr(value,"kind")=="m")
+		y <- value*10^attr(value,"scale") * 39.37
+		attr(y,"kind") <- "inches"
+		attr(y,"scale") <- 1
+		attr(y,"exponent") <- 1
+	}
+	return(y)
+}
+
+makePlots <- function(Q,...){
 	ex <- Q$experiments
 	sb <- Q$sbtab
 	s_ <- Q$simulations
-	f <- pracma::factors(length(ex))
-	par(mfrow=c(f[1],prod(tail(f,-1))))
+	par(...)
 	for (i in seq_along(ex)){
 		t_ <- ex[[i]]$outputTimes
 		y_ <- t(ex[[i]]$outputValues)
