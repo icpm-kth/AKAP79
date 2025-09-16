@@ -62,3 +62,33 @@ manyFilesSample <- function(files, beta=1.0){
 	comment(q) <- uqsa::determinePrefix(files)
 	return(q)
 }
+
+errorBars <- function(x,y,e,...){
+	arrows(x,y,x,y-e,angle=90,...)
+	arrows(x,y,x,y+e,angle=90,...)
+	points(x,y,...)
+}
+
+makePlots <- function(Q){
+	ex <- Q$experiments
+	sb <- Q$sbtab
+	s_ <- Q$simulations
+	f <- pracma::factors(length(ex))
+	par(mfrow=c(f[1],prod(tail(f,-1))))
+	for (i in seq_along(ex)){
+		t_ <- ex[[i]]$outputTimes
+		y_ <- t(ex[[i]]$outputValues)
+		e_ <- t(ex[[i]]$errorValues)
+		h_ <- s_[[i]]$func['AKAR4pOUT',,]
+		matplot(t_,h_,
+			type="l",
+			main=names(ex)[i],
+			xlab="t",
+			ylab="AKAR4p",
+			lty=1,lwd=2,
+			col=rgb(0.2,0,0.8,0.5)
+		)
+		errorBars(t_,y_,e_,length=0.01)
+		lines(t_,h_[,1],col="red3")
+	}
+}
