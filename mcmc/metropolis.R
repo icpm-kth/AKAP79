@@ -80,7 +80,22 @@ rprior <- rNormalPrior(mean=Median,sd=stdv)
 ## ----simulate-----------------------------------------------------------------
 sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
 
-llf <- logLikelihoodFunc(experiments)
+simpleLLF <- function(y,h,stdv,eName=NULL){
+	n <- sum(is.finite(as.vector(y)))
+	l <- -0.5*n*log(2*pi)
+	for (j in seq(NROW(y))){
+		## absolute size of the systematic error (prior hypothesis):
+		if (any(is.finite(y[j,]))){
+			sd <- stdv[j,]
+			d <- y[j,] - h[j,]
+			eta <- 5 ## approximate size of the systematic error
+			Xi <- sum(sd^(-2),na.rm=TRUE) + eta^(-2)
+			l <- l + 0.5*sum(d/sd,na.rm=TRUE)^2/Xi - 0.5*sum((d/sd)^2,na.rm=TRUE) - sum(log(sd),na.rm=TRUE) - log(eta) - 0.5*log(Xi)
+		}
+	}
+	return(l)
+}
+llf <- logLikelihoodFunc(experiments,simpleUserLLF=simpleLLF)
 
 X <- NULL # this is to suppress one intial warning
 sampleSize <- round(exp(seq(log(100),log(N),length.out=cycl)))
