@@ -92,7 +92,7 @@ if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 dprior <- dNormalPrior(mean=Median,sd=stdv)
 rprior <- rNormalPrior(mean=Median,sd=stdv)
 ## ----simulate-----------------------------------------------------------------
-sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
+sim <- simcf(experiments,modelName,parMap=log10ParMap)
 
 llf <- logLikelihoodFunc(experiments)
 
