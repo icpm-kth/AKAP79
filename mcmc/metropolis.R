@@ -19,7 +19,7 @@ attr(comm,"size") <- cs
 # random number seed:
 
 set.seed(137*r + 1337*cs)
-R <- round(cs/2)
+R <- round(cs)
 
 N <- 10000
 h <- 2e-2
@@ -39,6 +39,7 @@ if (!is.null(a) && length(a)>0){
 			"-h"={h <- as.double(val)},
 			"-c"={cycl <- as.integer(val)},
 			"-R"={R <- as.integer(val)},
+			"--seed"={set.seed(as.double(val))},
 			"--prefix"={PREFIX=as.character(val)},
 			{warning(sprintf("unknown option %s %s",key,val))}
 		)
@@ -54,6 +55,14 @@ shortHash <- substr(Hash,1,8)
 modelFiles <- dir("..",pattern="[.]tsv$",full.names=TRUE)
 sb <- SBtabVFGEN::sbtab_from_tsv(modelFiles,verbose=FALSE)
 
+if (file.exists("AKAP79.RDS")){
+	m <- readRDS("AKAP79.RDS")
+	cl <- m$conservationLaws
+} else {
+	m <- NULL
+	cl <- NULL
+}
+
 suppressMessages(
 	modelName <- checkModel(
 		comment(sb),
@@ -61,16 +70,21 @@ suppressMessages(
 	)
 )
 
-experiments <- sbtab.data(sb)
+experiments <- sbtab.data(sb,cl)
 options(mc.cores = length(experiments))
 ## ----default------------------------------------------------------------------
 n <- length(experiments[[1]]$input)
 
 stopifnot(all(startsWith(trimws(sb$Parameter[["!Scale"]]),"log10")))
-Median <- sb$Parameter[["!Median"]]
-parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
-names(parMCMC) <- rownames(sb$Parameter)
-stdv <- sb$Parameter[["!Std"]]              # this as well
+
+## this works if no conservation laws are used:
+## parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
+
+## load the R model, to access the default parameters
+source("../R/AKAP79.R")
+parMCMC <- log10(head(AKAP79_default(),-n))
+Median <- as.numeric(sb$Parameter[names(parMCMC),"!Median"])
+stdv <- as.numeric(sb$Parameter[names(parMCMC),"!Std"])
 if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
 	stdv <- parMCMC*0.5 + 0.5 + 0.5*max(parMCMC)
