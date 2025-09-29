@@ -3,11 +3,9 @@ loadNamespace("rgsl")
 loadNamespace("errors")
 
 ## this gets one sample matrix:
-sampleQuality <- function(x){
+sampleQuality <- function(x, sb, ex){
 	stopifnot(NROW(x)>NCOL(x))
 	## load sbtab and experiments
-	sb <- SBtabVFGEN::sbtab_from_tsv(dir("..",pattern="tsv$",full.names=TRUE))
-	ex <- SBtabVFGEN::sbtab.data(sb)
 	if (is.null(colnames(x))) colnames(x) <- rownames(sb$Parameter)
 	modelName <- uqsa::checkModel(comment(sb),sprintf("./%s.so",comment(sb)))
 	l <- attr(x,"logLikelihood")
@@ -42,14 +40,26 @@ sampleQuality <- function(x){
 
 	y <- s(t(Xo))
 	for (i in seq_along(y)){
-		rownames(y[[i]]$state) <- rownames(sb$Compound)
+		rownames(y[[i]]$state) <- names(ex[[i]]$initialState)
 	}
 	return(list(sample=Xo,tau=tau,simulations=y,sbtab=sb,experiments=ex))
 }
 
 
 ## this gets many files
-manyFilesSample <- function(files, beta=1.0){
+manyFilesSample <- function(files, sb=NULL, ex=NULL, beta=1){
+	if (is.null(sb)){
+		sb <- SBtabVFGEN::sbtab_from_tsv(dir("..",pattern="tsv$",full.names=TRUE))
+	}
+	if (is.null(ex) && file.exists("experiments.RDS")){
+		ex <- readRDS("experiments.RDS")
+	} else if (is.null(ex) && file.exists("AKAP79.RDS")) {
+		m <- SBtabVFGEN::sbtab_to_vfgen(sb)
+		cl <- m$conservationLaws
+		ex <- SBtabVFGEN::sbtab.data(sb,cl)
+	} else {
+		ex <- SBtabVFGEN::sbtab.data(sb)
+	}
 	if (length(files)>20){
 		cat(head(files),sep="\n")
 		cat("[...]\n")
@@ -58,7 +68,7 @@ manyFilesSample <- function(files, beta=1.0){
 		cat(files,sep="\n")
 	}
 	x <- uqsa::gatherSample(files,beta=1.0)
-	q <- sampleQuality(x)
+	q <- sampleQuality(x, sb, ex)
 	comment(q) <- uqsa::determinePrefix(files)
 	return(q)
 }
