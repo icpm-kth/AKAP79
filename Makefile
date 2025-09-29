@@ -1,17 +1,15 @@
 .PHONY: all
 
+
 model = AKAP79
+# turn conservation law analysis on: --cla
+OPT = --cla
 
-all: C/$(model)_gvf.c R/$(model).R $(model).tar.gz
+all: C/$(model)_gvf.c R/$(model).R
 
 
-R/%.R: %.tar.gz
-	ode -R --maxima $^ > $@
+C/%_gvf.c R/%.R: *.tsv
+	./makeModel.R $(OPT)
 
-C/%_gvf.c: %.tar.gz
-	ode -C --maxima $^ > $@
-
-vfgen/%.vf %.tar.gz %.zip: *.tsv
-	sbtab_to_vfgen $^
 
 
