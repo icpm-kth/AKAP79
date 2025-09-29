@@ -55,12 +55,14 @@ shortHash <- substr(Hash,1,8)
 modelFiles <- dir("..",pattern="[.]tsv$",full.names=TRUE)
 sb <- SBtabVFGEN::sbtab_from_tsv(modelFiles,verbose=FALSE)
 
-if (file.exists("AKAP79.RDS")){
+if (file.exists("experiments.RDS")){
+	experiments <- readRDS("experiments.RDS")
+} else if (file.exists("AKAP79.RDS")) {
 	m <- readRDS("AKAP79.RDS")
 	cl <- m$conservationLaws
+	experiments <- sbtab.data(sb,cl)
 } else {
-	m <- NULL
-	cl <- NULL
+	experiments <- sbtab.data(sb)
 }
 
 suppressMessages(
@@ -70,21 +72,23 @@ suppressMessages(
 	)
 )
 
-experiments <- sbtab.data(sb,cl)
 options(mc.cores = length(experiments))
 ## ----default------------------------------------------------------------------
 n <- length(experiments[[1]]$input)
 
 stopifnot(all(startsWith(trimws(sb$Parameter[["!Scale"]]),"log10")))
 
-## this works if no conservation laws are used:
-## parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
+parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
+names(parMCMC) <- rownames(sb$Parameter)
 
-## load the R model, to access the default parameters
-source("../R/AKAP79.R")
-parMCMC <- log10(head(AKAP79_default(),-n))
-Median <- as.numeric(sb$Parameter[names(parMCMC),"!Median"])
-stdv <- as.numeric(sb$Parameter[names(parMCMC),"!Std"])
+## alternative way to get default parameters:
+## parMCMC <- log10(head(AKAP79_default(),-n))
+## Median <- as.numeric(sb$Parameter[names(parMCMC),"!Median"])
+## stdv <- as.numeric(sb$Parameter[names(parMCMC),"!Std"])
+
+Median <- sb$Parameter[["!Median"]]
+stdv <- sb$Parameter[["!Std"]]
+
 if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
 	stdv <- parMCMC*0.5 + 0.5 + 0.5*max(parMCMC)
