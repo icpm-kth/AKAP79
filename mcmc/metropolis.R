@@ -73,10 +73,15 @@ options(mc.cores = length(experiments))
 n <- length(experiments[[1]]$input)
 
 stopifnot(all(startsWith(trimws(sb$Parameter[["!Scale"]]),"log10")))
-Median <- sb$Parameter[["!Median"]]
 parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
 names(parMCMC) <- rownames(sb$Parameter)
-stdv <- sb$Parameter[["!Std"]]              # this as well
+## alternative way to get default parameters:
+## parMCMC <- log10(head(AKAP79_default(),-n))
+## Median <- as.numeric(sb$Parameter[names(parMCMC),"!Median"])
+## stdv <- as.numeric(sb$Parameter[names(parMCMC),"!Std"])
+Median <- sb$Parameter[["!Median"]]
+stdv <- sb$Parameter[["!Std"]]
+
 if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
 	stdv <- parMCMC*0.5 + 0.5 + 0.5*max(parMCMC)
