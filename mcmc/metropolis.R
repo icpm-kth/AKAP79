@@ -19,12 +19,14 @@ attr(comm,"size") <- cs
 # random number seed:
 
 set.seed(137*r + 1337*cs)
-R <- round(cs/2)
+R <- round(cs)
 
 N <- 10000
 h <- 2e-2
 cycl <- 7
 PREFIX <- system2("date",args=c("--iso-8601"),stdout=TRUE)
+assumeSystematicError <- FALSE
+use.mclapply <- FALSE
 ## possibly adjust sampling-settings
 a <- commandArgs(trailingOnly=TRUE)
 if (!is.null(a) && length(a)>0){
@@ -40,7 +42,10 @@ if (!is.null(a) && length(a)>0){
 			"-c"={cycl <- as.integer(val)},
 			"-R"={R <- as.integer(val)},
 			"--prefix"={PREFIX=as.character(val)},
-			{warning(sprintf("unknown option %s %s",key,val))}
+			"--seed"={set.seed(as.double(val))},
+			"--sys-err"={assumeSystematicError <- as.logical(val)},
+			"--mclapply"={use.mclapply <- as.logical(val)},
+			{warning(sprintf("unknown option [%s] [%s]",key,val))}
 		)
 	}
 }
@@ -61,7 +66,8 @@ suppressMessages(
 	)
 )
 
-experiments <- sbtab.data(sb)
+stopifnot(file.exists("experiments.RDS"))
+experiments <- readRDS("experiments.RDS")
 options(mc.cores = length(experiments))
 ## ----default------------------------------------------------------------------
 n <- length(experiments[[1]]$input)
@@ -78,9 +84,37 @@ if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 dprior <- dNormalPrior(mean=Median,sd=stdv)
 rprior <- rNormalPrior(mean=Median,sd=stdv)
 ## ----simulate-----------------------------------------------------------------
-sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
+if (use.mclapply){
+	sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
+} else {
+	sim <- simcf(experiments,modelName,parMap=log10ParMap)
+}
 
-llf <- logLikelihoodFunc(experiments)
+if (assumeSystematicError){
+	llf <- logLikelihoodFunc(
+		experiments,
+		simpleUserLLF=function(y,h,stdv,eName=NULL){
+			n <- sum(is.finite(as.vector(y)))
+			l <- -0.5*n*log(2*pi)
+			for (j in seq(NROW(y))){
+				if (any(is.finite(y[j,]))){
+					sd <- stdv[j,]
+					d <- y[j,] - h[j,]
+					eta <- 5 ## approximate size of the systematic error
+					Xi <- sum(sd^(-2),na.rm=TRUE) + eta^(-2)
+					l <- l + 0.5*sum(d/sd,na.rm=TRUE)^2/Xi
+						- 0.5*sum((d/sd)^2,na.rm=TRUE)
+						- sum(log(sd),na.rm=TRUE)
+						- log(eta)
+						- 0.5*log(Xi)
+				}
+			}
+			return(l)
+		}
+	)
+} else {
+	llf <- logLikelihoodFunc(experiments)
+}
 
 X <- NULL # this is to suppress one intial warning
 sampleSize <- round(exp(seq(log(100),log(N),length.out=cycl)))
