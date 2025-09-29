@@ -109,7 +109,7 @@ cm <- function(x){
 	return(y)
 }
 
-makePlots <- function(Q,...){
+makePlots <- function(Q,yl=c(90,200),...){
 	ex <- Q$experiments
 	sb <- Q$sbtab
 	s_ <- Q$simulations
@@ -125,7 +125,8 @@ makePlots <- function(Q,...){
 			xlab="t",
 			ylab="AKAR4p",
 			lty=1,lwd=2,
-			col=rgb(0.2,0,0.8,0.5)
+			col=rgb(0.2,0,0.8,0.5),
+			ylim=yl
 		)
 		errorBars(t_,y_,e_,length=0.01)
 		lines(t_,h_[,1],col="red3")
