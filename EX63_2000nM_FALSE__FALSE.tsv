@@ -1,4 +1,4 @@
-!!SBtab Document='AKAP79' Version='1.0' TableName='X2000nM_cAMPno_CaN_2_uM_cAMP' TableType='QuantityMatrix'			
+!!SBtab Document='AKAP79' Version='1.0' TableName='EX63_2000nM_FALSE__FALSE' TableType='QuantityMatrix'			
 !TimePoint	!Time	>AKAR4pOUT	~AKAR4pOUT
 E0301T001	-15	99.4136	0.711886579917949
 E0301T002	-10	100.617	0.401234567901235
