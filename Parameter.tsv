@@ -28,6 +28,8 @@ k4p_4on	k4p_4on	21	0.236153457	0.301	3	Normal distribution	log10	1/second
 kf_C_AKAR4	kf_C_AKAR4	22	-1.742480407	-1.745	0.0969	Normal distribution	log10	1/(micromolarity*second)
 kb_C_AKAR4	kb_C_AKAR4	23	-0.980459545	-0.975	0.0969	Normal distribution	log10	1/second
 kcat_AKARp	kcat_AKARp	24	1.00779823	1.009	0.0969	Normal distribution	log10	1/second
-kmOFF	kmOFF	25	2.009602466	2	0.176	Normal distribution	log10	micromolarity
-kmON	kmON	26	-0.005703976	0	0.176	Normal distribution	log10	micromolarity
+km3OFF	km3OFF	25	2.009602466	2	0.176	Normal distribution	log10	micromolarity
+km4OFF	km4OFF	25	2.009602466	2	0.176	Normal distribution	log10	micromolarity
+km3ON	km3ON	26	-0.005703976	0	0.176	Normal distribution	log10	micromolarity
+km4ON	km4ON	26	-0.005703976	0	0.176	Normal distribution	log10	micromolarity
 KD_T	KD_T	27	-0.175252976	-0.155	0.301	Normal distribution	log10	micromolarity

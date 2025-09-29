@@ -7,7 +7,7 @@
 
 /* Enums will be used for indexing purposes.   */
 enum stateVariable { _RiiP, _RiiP_cAMP, _RiiP_C, _RiiP_C_cAMP, _C, _Rii_cAMP, _Rii_C_cAMP, _RiiP_CaN, _RiiP_cAMP_CaN, _AKAR4_C, _AKAR4p, numStateVar };
-enum param { _k5_1, _k1_2, _k3_2, _k2_3, _k3_4, _k4_3, _k4_1, _k1_4, _k8_7, _k7_8, _k5_6, _k6_5, _k8_5, _k7_6, _k6_7, _k6_2, _k5_8, _k3p_7off, _k4p_8off, _k3p_3off, _k4p_4off, _k3p_7on, _k4p_8on, _k3p_3on, _k4p_4on, _kf_C_AKAR4, _kb_C_AKAR4, _kcat_AKARp, _kmOFF, _kmON, _KD_T, _b_AKAP, _AKAR4_ConservedConst, _CaN_ConservedConst, _Rii_C_ConservedConst, _cAMP_ConservedConst, _Rii_ConservedConst, numParam };
+enum param { _k5_1, _k1_2, _k3_2, _k2_3, _k3_4, _k4_3, _k4_1, _k1_4, _k8_7, _k7_8, _k5_6, _k6_5, _k8_5, _k7_6, _k6_7, _k6_2, _k5_8, _k3p_7off, _k4p_8off, _k3p_3off, _k4p_4off, _k3p_7on, _k4p_8on, _k3p_3on, _k4p_4on, _kf_C_AKAR4, _kb_C_AKAR4, _kcat_AKARp, _km3OFF, _km4OFF, _km3ON, _km4ON, _KD_T, _b_AKAP, _AKAR4_ConservedConst, _CaN_ConservedConst, _Rii_C_ConservedConst, _cAMP_ConservedConst, _Rii_ConservedConst, numParam };
 enum func { _AKAR4pOUT, numFunc };
 
 /* The error codes indicate how many values a function returns.                             */
@@ -47,15 +47,17 @@ int AKAP79_vf(double t, const double y_[], double *f_, void *par){
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -73,8 +75,8 @@ int AKAP79_vf(double t, const double y_[], double *f_, void *par){
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -146,15 +148,17 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -172,8 +176,8 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -197,23 +201,23 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	double reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	double reaction_2 = kcat_AKARp*AKAR4_C;
 	memset(jac_,0,sizeof(double)*121); /* initialize with 0.0 */
-	/*[ 0, 0]*/  jac_[0] = -(k4_1*C+k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)));
+	/*[ 0, 0]*/  jac_[0] = -(k4_1*C+k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)));
 	/*[ 0, 1]*/  jac_[1] = k4_3*RiiP+k3_4;
 	/*[ 0, 2]*/  jac_[2] = k1_4;
 	/*[ 0, 3]*/  jac_[3] = k4_3*RiiP;
 	/*[ 0, 4]*/  jac_[4] = -k4_1*RiiP;
 	/*[ 0, 5]*/  jac_[5] = k4_3*RiiP;
 	/*[ 0, 6]*/  jac_[6] = k4_3*RiiP;
-	/*[ 0, 7]*/  jac_[7] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off;
-	/*[ 0, 8]*/  jac_[8] = k4_3*RiiP+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP;
+	/*[ 0, 7]*/  jac_[7] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off;
+	/*[ 0, 8]*/  jac_[8] = k4_3*RiiP+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP;
 	/*[ 1, 0]*/  jac_[11] = k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 1, 1]*/  jac_[12] = -(k4_3*RiiP+k3_4+k3_2*C+((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)));
+	/*[ 1, 1]*/  jac_[12] = -(k4_3*RiiP+k3_4+k3_2*C+((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)));
 	/*[ 1, 3]*/  jac_[14] = k2_3-k4_3*RiiP;
 	/*[ 1, 4]*/  jac_[15] = -k3_2*RiiP_cAMP;
 	/*[ 1, 5]*/  jac_[16] = -k4_3*RiiP;
 	/*[ 1, 6]*/  jac_[17] = -k4_3*RiiP;
-	/*[ 1, 7]*/  jac_[18] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP;
-	/*[ 1, 8]*/  jac_[19] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off-k4_3*RiiP;
+	/*[ 1, 7]*/  jac_[18] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP;
+	/*[ 1, 8]*/  jac_[19] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off-k4_3*RiiP;
 	/*[ 2, 0]*/  jac_[22] = k4_1*C;
 	/*[ 2, 1]*/  jac_[23] = k1_2*RiiP_C;
 	/*[ 2, 2]*/  jac_[24] = -(k1_4+k5_1+k1_2*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN)));
@@ -258,12 +262,12 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 	/*[ 6, 6]*/  jac_[72] = -(k6_7+k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))+k6_5+k6_2);
 	/*[ 6, 8]*/  jac_[74] = -k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
 	/*[ 6, 9]*/  jac_[75] = -k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 7, 0]*/  jac_[77] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 7, 7]*/  jac_[84] = -(((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off);
-	/*[ 7, 8]*/  jac_[85] = -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP;
-	/*[ 8, 1]*/  jac_[89] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 8, 7]*/  jac_[95] = -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP;
-	/*[ 8, 8]*/  jac_[96] = -(((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off);
+	/*[ 7, 0]*/  jac_[77] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 7, 7]*/  jac_[84] = -(((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off);
+	/*[ 7, 8]*/  jac_[85] = -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP;
+	/*[ 8, 1]*/  jac_[89] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 8, 7]*/  jac_[95] = -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP;
+	/*[ 8, 8]*/  jac_[96] = -(((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off);
 	/*[ 9, 4]*/  jac_[103] = kf_C_AKAR4*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p));
 	/*[ 9, 9]*/  jac_[108] = -(kf_C_AKAR4*C+kb_C_AKAR4+kcat_AKARp);
 	/*[ 9,10]*/  jac_[109] = -kf_C_AKAR4*C;
@@ -274,7 +278,7 @@ int AKAP79_jac(double t, const double y_[], double *jac_, double *dfdt_, void *p
 /* ODE parameter Jacobian: df(t,y;p)/dp   */
 int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void *par){
 	double *p_=par;
-	if (!y_ || !jacp_) return 407;
+	if (!y_ || !jacp_) return 429;
 /* 	constants   */
 /* 	parameter values   */
 	double k5_1 = p_[_k5_1];                                            /* [  0] */
@@ -305,15 +309,17 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -331,8 +337,8 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -355,101 +361,97 @@ int AKAP79_jacp(double t, const double y_[], double *jacp_, double *dfdt_, void 
 	double reaction_37 = k3p_7*RiiP_cAMP_CaN;
 	double reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	double reaction_2 = kcat_AKARp*AKAR4_C;
-	memset(jacp_,0,sizeof(double)*407); /* initialize with 0.0 */
+	memset(jacp_,0,sizeof(double)*429); /* initialize with 0.0 */
 	/*[ 0, 4]*/  jacp_[4] = RiiP_cAMP;
 	/*[ 0, 5]*/  jacp_[5] = -(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))*RiiP;
 	/*[ 0, 6]*/  jacp_[6] = -RiiP*C;
 	/*[ 0, 7]*/  jacp_[7] = RiiP_C;
-	/*[ 0,17]*/  jacp_[17] = -((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 0,20]*/  jacp_[20] = (1-b_AKAP)*RiiP_CaN-((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 0,21]*/  jacp_[21] = -(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 0,24]*/  jacp_[24] = b_AKAP*RiiP_CaN-(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 0,28]*/  jacp_[28] = ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(kmOFF);
-	/*[ 0,29]*/  jacp_[29] = ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(kmON);
-	/*[ 0,31]*/  jacp_[31] = (k4p_4on-k4p_4off)*RiiP_CaN-((b_AKAP*(k4p_4on-k4p_4off+k3p_7on-k3p_7off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/kmON+((1-b_AKAP)*(k4p_4on-k4p_4off+k3p_7on-k3p_7off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 0,33]*/  jacp_[33] = -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP;
-	/*[ 0,35]*/  jacp_[35] = -k4_3*RiiP;
-	/*[ 1, 2]*/  jacp_[39] = -RiiP_cAMP*C;
-	/*[ 1, 3]*/  jacp_[40] = RiiP_C_cAMP;
-	/*[ 1, 4]*/  jacp_[41] = -RiiP_cAMP;
-	/*[ 1, 5]*/  jacp_[42] = (cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))*RiiP;
-	/*[ 1,18]*/  jacp_[55] = -((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 1,19]*/  jacp_[56] = (1-b_AKAP)*RiiP_cAMP_CaN-((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 1,22]*/  jacp_[59] = -(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 1,23]*/  jacp_[60] = b_AKAP*RiiP_cAMP_CaN-(gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 1,28]*/  jacp_[65] = (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(kmOFF);
-	/*[ 1,29]*/  jacp_[66] = (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(kmON);
-	/*[ 1,31]*/  jacp_[68] = (k3p_3on-k3p_3off)*RiiP_cAMP_CaN-((b_AKAP*(k3p_3on-k3p_3off+k4p_8on-k4p_8off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/kmON+((1-b_AKAP)*(k3p_3on-k3p_3off+k4p_8on-k4p_8off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 1,33]*/  jacp_[70] = -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP;
-	/*[ 1,35]*/  jacp_[72] = k4_3*RiiP;
-	/*[ 2, 0]*/  jacp_[74] = Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C);
-	/*[ 2, 1]*/  jacp_[75] = KD_T*RiiP_C_cAMP-RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 2, 6]*/  jacp_[80] = RiiP*C;
-	/*[ 2, 7]*/  jacp_[81] = -RiiP_C;
-	/*[ 2,30]*/  jacp_[104] = k1_2*RiiP_C_cAMP;
-	/*[ 2,34]*/  jacp_[108] = k5_1;
-	/*[ 2,35]*/  jacp_[109] = -k1_2*RiiP_C;
-	/*[ 3, 1]*/  jacp_[112] = RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))-KD_T*RiiP_C_cAMP;
-	/*[ 3, 2]*/  jacp_[113] = RiiP_cAMP*C;
-	/*[ 3, 3]*/  jacp_[114] = -RiiP_C_cAMP;
-	/*[ 3,15]*/  jacp_[126] = Rii_C_cAMP;
-	/*[ 3,30]*/  jacp_[141] = -k1_2*RiiP_C_cAMP;
-	/*[ 3,35]*/  jacp_[146] = k1_2*RiiP_C;
-	/*[ 4, 2]*/  jacp_[150] = -RiiP_cAMP*C;
-	/*[ 4, 3]*/  jacp_[151] = RiiP_C_cAMP;
-	/*[ 4, 6]*/  jacp_[154] = -RiiP*C;
-	/*[ 4, 7]*/  jacp_[155] = RiiP_C;
-	/*[ 4,12]*/  jacp_[160] = -(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))*C;
-	/*[ 4,13]*/  jacp_[161] = -Rii_cAMP*C;
-	/*[ 4,14]*/  jacp_[162] = Rii_C_cAMP;
-	/*[ 4,16]*/  jacp_[164] = Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C);
-	/*[ 4,25]*/  jacp_[173] = -C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p));
-	/*[ 4,26]*/  jacp_[174] = AKAR4_C;
-	/*[ 4,27]*/  jacp_[175] = AKAR4_C;
-	/*[ 4,32]*/  jacp_[180] = -kf_C_AKAR4*C;
-	/*[ 4,34]*/  jacp_[182] = k5_8;
-	/*[ 4,36]*/  jacp_[184] = -k8_5*C;
-	/*[ 5, 8]*/  jacp_[193] = (cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C));
-	/*[ 5, 9]*/  jacp_[194] = -Rii_cAMP;
-	/*[ 5,13]*/  jacp_[198] = -Rii_cAMP*C;
-	/*[ 5,14]*/  jacp_[199] = Rii_C_cAMP;
-	/*[ 5,17]*/  jacp_[202] = (1-b_AKAP)*RiiP_cAMP_CaN;
-	/*[ 5,21]*/  jacp_[206] = b_AKAP*RiiP_cAMP_CaN;
-	/*[ 5,31]*/  jacp_[216] = (k3p_7on-k3p_7off)*RiiP_cAMP_CaN;
-	/*[ 5,35]*/  jacp_[220] = k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C));
-	/*[ 5,36]*/  jacp_[221] = k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 6,10]*/  jacp_[232] = (Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 6,11]*/  jacp_[233] = -Rii_C_cAMP;
-	/*[ 6,13]*/  jacp_[235] = Rii_cAMP*C;
-	/*[ 6,14]*/  jacp_[236] = -Rii_C_cAMP;
-	/*[ 6,15]*/  jacp_[237] = -Rii_C_cAMP;
-	/*[ 6,34]*/  jacp_[256] = k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
-	/*[ 6,35]*/  jacp_[257] = k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
-	/*[ 7,17]*/  jacp_[276] = ((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 7,18]*/  jacp_[277] = -(1-b_AKAP)*RiiP_CaN;
-	/*[ 7,20]*/  jacp_[279] = ((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN;
-	/*[ 7,21]*/  jacp_[280] = (gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
-	/*[ 7,22]*/  jacp_[281] = -b_AKAP*RiiP_CaN;
-	/*[ 7,24]*/  jacp_[283] = (gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN;
-	/*[ 7,28]*/  jacp_[287] = (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(kmOFF);
-	/*[ 7,29]*/  jacp_[288] = (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(kmON);
-	/*[ 7,31]*/  jacp_[290] = ((b_AKAP*(k4p_4on-k4p_4off+k3p_7on-k3p_7off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/kmON+((1-b_AKAP)*(k4p_4on-k4p_4off+k3p_7on-k3p_7off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(k4p_4on-k4p_4off)*RiiP_CaN-(k4p_8on-k4p_8off)*RiiP_CaN;
-	/*[ 7,33]*/  jacp_[292] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/kmOFF)*RiiP;
-	/*[ 8,17]*/  jacp_[313] = -(1-b_AKAP)*RiiP_cAMP_CaN;
-	/*[ 8,18]*/  jacp_[314] = ((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 8,19]*/  jacp_[315] = ((b_AKAP*(1-b_AKAP))/kmON+gsl_pow_2(1-b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN;
-	/*[ 8,21]*/  jacp_[317] = -b_AKAP*RiiP_cAMP_CaN;
-	/*[ 8,22]*/  jacp_[318] = (gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
-	/*[ 8,23]*/  jacp_[319] = (gsl_pow_2(b_AKAP)/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN;
-	/*[ 8,28]*/  jacp_[324] = (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(kmOFF);
-	/*[ 8,29]*/  jacp_[325] = (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(kmON);
-	/*[ 8,31]*/  jacp_[327] = ((b_AKAP*(k3p_3on-k3p_3off+k4p_8on-k4p_8off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/kmON+((1-b_AKAP)*(k3p_3on-k3p_3off+k4p_8on-k4p_8off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(k3p_3on-k3p_3off)*RiiP_cAMP_CaN-(k3p_7on-k3p_7off)*RiiP_cAMP_CaN;
-	/*[ 8,33]*/  jacp_[329] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/kmOFF)*RiiP_cAMP;
-	/*[ 9,25]*/  jacp_[358] = C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p));
-	/*[ 9,26]*/  jacp_[359] = -AKAR4_C;
-	/*[ 9,27]*/  jacp_[360] = -AKAR4_C;
-	/*[ 9,32]*/  jacp_[365] = kf_C_AKAR4*C;
-	/*[10,27]*/  jacp_[397] = AKAR4_C;
+	/*[ 0,18]*/  jacp_[18] = -((b_AKAP*(1-b_AKAP))/km4ON+gsl_pow_2(1-b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 0,20]*/  jacp_[20] = (1-b_AKAP)*RiiP_CaN-((b_AKAP*(1-b_AKAP))/km4ON+gsl_pow_2(1-b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 0,22]*/  jacp_[22] = -(gsl_pow_2(b_AKAP)/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 0,24]*/  jacp_[24] = b_AKAP*RiiP_CaN-(gsl_pow_2(b_AKAP)/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 0,29]*/  jacp_[29] = ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(km4OFF);
+	/*[ 0,31]*/  jacp_[31] = ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(km4ON);
+	/*[ 0,33]*/  jacp_[33] = (k4p_4on-k4p_4off)*RiiP_CaN-((b_AKAP*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/km4ON+((1-b_AKAP)*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN));
+	/*[ 0,35]*/  jacp_[35] = -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP;
+	/*[ 0,37]*/  jacp_[37] = -k4_3*RiiP;
+	/*[ 1, 2]*/  jacp_[41] = -RiiP_cAMP*C;
+	/*[ 1, 3]*/  jacp_[42] = RiiP_C_cAMP;
+	/*[ 1, 4]*/  jacp_[43] = -RiiP_cAMP;
+	/*[ 1, 5]*/  jacp_[44] = (cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))*RiiP;
+	/*[ 1,17]*/  jacp_[56] = -((b_AKAP*(1-b_AKAP))/km3ON+gsl_pow_2(1-b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
+	/*[ 1,19]*/  jacp_[58] = (1-b_AKAP)*RiiP_cAMP_CaN-((b_AKAP*(1-b_AKAP))/km3ON+gsl_pow_2(1-b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
+	/*[ 1,21]*/  jacp_[60] = -(gsl_pow_2(b_AKAP)/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
+	/*[ 1,23]*/  jacp_[62] = b_AKAP*RiiP_cAMP_CaN-(gsl_pow_2(b_AKAP)/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
+	/*[ 1,28]*/  jacp_[67] = (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(km3OFF);
+	/*[ 1,30]*/  jacp_[69] = (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(km3ON);
+	/*[ 1,33]*/  jacp_[72] = (k3p_3on-k3p_3off)*RiiP_cAMP_CaN-((b_AKAP*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/km3ON+((1-b_AKAP)*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP;
+	/*[ 1,35]*/  jacp_[74] = -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP;
+	/*[ 1,37]*/  jacp_[76] = k4_3*RiiP;
+	/*[ 2, 0]*/  jacp_[78] = Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C);
+	/*[ 2, 1]*/  jacp_[79] = KD_T*RiiP_C_cAMP-RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
+	/*[ 2, 6]*/  jacp_[84] = RiiP*C;
+	/*[ 2, 7]*/  jacp_[85] = -RiiP_C;
+	/*[ 2,32]*/  jacp_[110] = k1_2*RiiP_C_cAMP;
+	/*[ 2,36]*/  jacp_[114] = k5_1;
+	/*[ 2,37]*/  jacp_[115] = -k1_2*RiiP_C;
+	/*[ 3, 1]*/  jacp_[118] = RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))-KD_T*RiiP_C_cAMP;
+	/*[ 3, 2]*/  jacp_[119] = RiiP_cAMP*C;
+	/*[ 3, 3]*/  jacp_[120] = -RiiP_C_cAMP;
+	/*[ 3,15]*/  jacp_[132] = Rii_C_cAMP;
+	/*[ 3,32]*/  jacp_[149] = -k1_2*RiiP_C_cAMP;
+	/*[ 3,37]*/  jacp_[154] = k1_2*RiiP_C;
+	/*[ 4, 2]*/  jacp_[158] = -RiiP_cAMP*C;
+	/*[ 4, 3]*/  jacp_[159] = RiiP_C_cAMP;
+	/*[ 4, 6]*/  jacp_[162] = -RiiP*C;
+	/*[ 4, 7]*/  jacp_[163] = RiiP_C;
+	/*[ 4,12]*/  jacp_[168] = -(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))*C;
+	/*[ 4,13]*/  jacp_[169] = -Rii_cAMP*C;
+	/*[ 4,14]*/  jacp_[170] = Rii_C_cAMP;
+	/*[ 4,16]*/  jacp_[172] = Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C);
+	/*[ 4,25]*/  jacp_[181] = -C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p));
+	/*[ 4,26]*/  jacp_[182] = AKAR4_C;
+	/*[ 4,27]*/  jacp_[183] = AKAR4_C;
+	/*[ 4,34]*/  jacp_[190] = -kf_C_AKAR4*C;
+	/*[ 4,36]*/  jacp_[192] = k5_8;
+	/*[ 4,38]*/  jacp_[194] = -k8_5*C;
+	/*[ 5, 8]*/  jacp_[203] = (cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C));
+	/*[ 5, 9]*/  jacp_[204] = -Rii_cAMP;
+	/*[ 5,13]*/  jacp_[208] = -Rii_cAMP*C;
+	/*[ 5,14]*/  jacp_[209] = Rii_C_cAMP;
+	/*[ 5,17]*/  jacp_[212] = (1-b_AKAP)*RiiP_cAMP_CaN;
+	/*[ 5,21]*/  jacp_[216] = b_AKAP*RiiP_cAMP_CaN;
+	/*[ 5,33]*/  jacp_[228] = (k3p_7on-k3p_7off)*RiiP_cAMP_CaN;
+	/*[ 5,37]*/  jacp_[232] = k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C));
+	/*[ 5,38]*/  jacp_[233] = k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
+	/*[ 6,10]*/  jacp_[244] = (Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
+	/*[ 6,11]*/  jacp_[245] = -Rii_C_cAMP;
+	/*[ 6,13]*/  jacp_[247] = Rii_cAMP*C;
+	/*[ 6,14]*/  jacp_[248] = -Rii_C_cAMP;
+	/*[ 6,15]*/  jacp_[249] = -Rii_C_cAMP;
+	/*[ 6,36]*/  jacp_[270] = k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN));
+	/*[ 6,37]*/  jacp_[271] = k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
+	/*[ 7,18]*/  jacp_[291] = ((b_AKAP*(1-b_AKAP))/km4ON+gsl_pow_2(1-b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN;
+	/*[ 7,20]*/  jacp_[293] = ((b_AKAP*(1-b_AKAP))/km4ON+gsl_pow_2(1-b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN;
+	/*[ 7,22]*/  jacp_[295] = (gsl_pow_2(b_AKAP)/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN;
+	/*[ 7,24]*/  jacp_[297] = (gsl_pow_2(b_AKAP)/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN;
+	/*[ 7,29]*/  jacp_[302] = (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(km4OFF);
+	/*[ 7,31]*/  jacp_[304] = (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/gsl_pow_2(km4ON);
+	/*[ 7,33]*/  jacp_[306] = ((b_AKAP*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/km4ON+((1-b_AKAP)*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(k4p_4on-k4p_4off)*RiiP_CaN-(k4p_8on-k4p_8off)*RiiP_CaN;
+	/*[ 7,35]*/  jacp_[308] = ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP;
+	/*[ 8,17]*/  jacp_[329] = ((b_AKAP*(1-b_AKAP))/km3ON+gsl_pow_2(1-b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN;
+	/*[ 8,19]*/  jacp_[331] = ((b_AKAP*(1-b_AKAP))/km3ON+gsl_pow_2(1-b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN;
+	/*[ 8,21]*/  jacp_[333] = (gsl_pow_2(b_AKAP)/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN;
+	/*[ 8,23]*/  jacp_[335] = (gsl_pow_2(b_AKAP)/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN;
+	/*[ 8,28]*/  jacp_[340] = (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(km3OFF);
+	/*[ 8,30]*/  jacp_[342] = (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/gsl_pow_2(km3ON);
+	/*[ 8,33]*/  jacp_[345] = ((b_AKAP*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/km3ON+((1-b_AKAP)*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(k3p_3on-k3p_3off)*RiiP_cAMP_CaN-(k3p_7on-k3p_7off)*RiiP_cAMP_CaN;
+	/*[ 8,35]*/  jacp_[347] = ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP;
+	/*[ 9,25]*/  jacp_[376] = C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p));
+	/*[ 9,26]*/  jacp_[377] = -AKAR4_C;
+	/*[ 9,27]*/  jacp_[378] = -AKAR4_C;
+	/*[ 9,34]*/  jacp_[385] = kf_C_AKAR4*C;
+	/*[10,27]*/  jacp_[417] = AKAR4_C;
 	return GSL_SUCCESS;
 }
 
@@ -487,15 +489,17 @@ int AKAP79_func(double t, const double y_[], double *func_, void *par){
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -513,8 +517,8 @@ int AKAP79_func(double t, const double y_[], double *func_, void *par){
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -575,15 +579,17 @@ int AKAP79_funcJac(double t, const double y_[], double *funcJac_, void *par){
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -601,8 +607,8 @@ int AKAP79_funcJac(double t, const double y_[], double *funcJac_, void *par){
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -633,7 +639,7 @@ int AKAP79_funcJac(double t, const double y_[], double *funcJac_, void *par){
 /* Output function parameter Jacobian: dF(t,y;p)/dp   */
 int AKAP79_funcJacp(double t, const double y_[], double *funcJacp_, void *par){
 	double *p_=par;
-	if (!y_ || !funcJacp_) return 37;
+	if (!y_ || !funcJacp_) return 39;
 /* 	constants   */
 /* 	parameter values   */
 	double k5_1 = p_[_k5_1];                                            /* [  0] */
@@ -664,15 +670,17 @@ int AKAP79_funcJacp(double t, const double y_[], double *funcJacp_, void *par){
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 /* 	state variables   */
 	double RiiP = y_[_RiiP];                                            /* [  0] */
 	double RiiP_cAMP = y_[_RiiP_cAMP];                                  /* [  1] */
@@ -690,8 +698,8 @@ int AKAP79_funcJacp(double t, const double y_[], double *funcJacp_, void *par){
 	double k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
 	double k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
 	double k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
-	double k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	double k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
+	double k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	double k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	double k2_1 = k1_2 * KD_T;
 	double AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	double CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
@@ -714,14 +722,14 @@ int AKAP79_funcJacp(double t, const double y_[], double *funcJacp_, void *par){
 	double reaction_37 = k3p_7*RiiP_cAMP_CaN;
 	double reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	double reaction_2 = kcat_AKARp*AKAR4_C;
-	memset(funcJacp_,0,sizeof(double)*37); /* initialize with 0.0 */
+	memset(funcJacp_,0,sizeof(double)*39); /* initialize with 0.0 */
 	return GSL_SUCCESS;
 }
 
 int AKAP79_default(double t, double *p_){
 	if (!p_) return numParam;
 /* 	constants   */
-	memset(p_,0,sizeof(double)*37); /* initialize with 0.0 */
+	memset(p_,0,sizeof(double)*39); /* initialize with 0.0 */
 	p_[_k5_1] = 46.5411365826226;
 	p_[_k1_2] = 1.24347737295428;
 	p_[_k3_2] = 0.00328439415820813;
@@ -750,8 +758,10 @@ int AKAP79_default(double t, double *p_){
 	p_[_kf_C_AKAR4] = 0.0180933753586079;
 	p_[_kb_C_AKAR4] = 0.104602112392241;
 	p_[_kcat_AKARp] = 10.1811826795126;
-	p_[_kmOFF] = 102.235674360709;
-	p_[_kmON] = 0.986951983065571;
+	p_[_km3OFF] = 102.235674360709;
+	p_[_km4OFF] = 102.235674360709;
+	p_[_km3ON] = 0.986951983065571;
+	p_[_km4ON] = 0.986951983065571;
 	p_[_KD_T] = 0.667954721425184;
 	p_[_AKAR4_ConservedConst] = 0.2;
 	p_[_CaN_ConservedConst] = 1.5;
@@ -793,15 +803,17 @@ int AKAP79_init(double t, double *y_, void *par){
 	double kf_C_AKAR4 = p_[_kf_C_AKAR4];                                /* [ 25] */
 	double kb_C_AKAR4 = p_[_kb_C_AKAR4];                                /* [ 26] */
 	double kcat_AKARp = p_[_kcat_AKARp];                                /* [ 27] */
-	double kmOFF = p_[_kmOFF];                                          /* [ 28] */
-	double kmON = p_[_kmON];                                            /* [ 29] */
-	double KD_T = p_[_KD_T];                                            /* [ 30] */
-	double b_AKAP = p_[_b_AKAP];                                        /* [ 31] */
-	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 32] */
-	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 33] */
-	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 34] */
-	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 35] */
-	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 36] */
+	double km3OFF = p_[_km3OFF];                                        /* [ 28] */
+	double km4OFF = p_[_km4OFF];                                        /* [ 29] */
+	double km3ON = p_[_km3ON];                                          /* [ 30] */
+	double km4ON = p_[_km4ON];                                          /* [ 31] */
+	double KD_T = p_[_KD_T];                                            /* [ 32] */
+	double b_AKAP = p_[_b_AKAP];                                        /* [ 33] */
+	double AKAR4_ConservedConst = p_[_AKAR4_ConservedConst];            /* [ 34] */
+	double CaN_ConservedConst = p_[_CaN_ConservedConst];                /* [ 35] */
+	double Rii_C_ConservedConst = p_[_Rii_C_ConservedConst];            /* [ 36] */
+	double cAMP_ConservedConst = p_[_cAMP_ConservedConst];              /* [ 37] */
+	double Rii_ConservedConst = p_[_Rii_ConservedConst];                /* [ 38] */
 	memset(y_,0,sizeof(double)*11); /* initialize with 0.0 */
 	return GSL_SUCCESS;
 }
