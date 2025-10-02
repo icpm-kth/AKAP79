@@ -105,7 +105,7 @@ if (assumeSystematicError){
 				if (any(is.finite(y[j,]))){
 					sd <- stdv[j,]
 					d <- y[j,] - h[j,]
-					eta <- 5 ## approximate size of the systematic error
+					eta <- 1 ## approximate size of the systematic error
 					Xi <- sum(sd^(-2),na.rm=TRUE) + eta^(-2)
 					l <- l + 0.5*sum(d/sd,na.rm=TRUE)^2/Xi
 						- 0.5*sum((d/sd)^2,na.rm=TRUE)
