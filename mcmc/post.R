@@ -73,10 +73,10 @@ manyFilesSample <- function(files, sb=NULL, ex=NULL, beta=1){
 	return(q)
 }
 
-errorBars <- function(x,y,e,...){
-	arrows(x,y,x,y-e,angle=90,...)
-	arrows(x,y,x,y+e,angle=90,...)
-	points(x,y,...)
+errorBars <- function(x,y,e,length=0.01){
+	arrows(x,y,x,y-e,angle=90,length=length)
+	arrows(x,y,x,y+e,angle=90,length=length)
+	points(x,y)
 }
 
 #' this function tags the number as being in centimeters
@@ -128,7 +128,7 @@ makePlots <- function(Q,yl=c(90,200),...){
 			col=rgb(0.2,0,0.8,0.5),
 			ylim=yl
 		)
-		errorBars(t_,y_,e_,length=0.01)
+		errorBars(t_,y_,e_)
 		lines(t_,h_[,1],col="red3")
 	}
 }
