@@ -23,15 +23,21 @@ names(parMCMC) <- rownames(sb$Parameter)
 Median <- sb$Parameter[["!Median"]]
 stdv <- sb$Parameter[["!Std"]]
 dprior <- dNormalPrior(mean=Median,sd=stdv)
-sim <- simcf(experiments,modelName,parMap=log10ParMap)
+sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
 llf <- logLikelihoodFunc(experiments)
 
 MINIMIZE_THIS <- function(parMCMC){
-	attr(parMCMC,"simulations") <- sim(parMCMC); 
+	attr(parMCMC,"simulations") <- sim(parMCMC)
 	return(-1.0 * (llf(parMCMC) + log(dprior(parMCMC))))
 }
 
+start_ <- Sys.time()
 O <- optimx(parMCMC,MINIMIZE_THIS, method="Nelder-Mead",itnmax=1e4)
+message("Optimization complete.")
+end_ <- Sys.time()
+
+dTime <- end_- start_
+print(dTime)
 
 optimxResult <- function(res, initialValue){
 	message(sprintf("           value: %g",res$value[1]))
@@ -48,7 +54,7 @@ optimxResult <- function(res, initialValue){
 p <- optimxResult(O,parMCMC)
 y <- sim(p)
 
-pdf(file="optimx-llf.pdf",width=cm(40) %as% "inches", height=cm(30) %as% "inches")
+pdf(file="optimx-with-dprior.pdf",width=cm(40) %as% "inches", height=cm(30) %as% "inches")
 par(mfrow=c(3,3))
 for (i in seq_along(y)){
 	tm <- experiments[[i]]$outputTime
