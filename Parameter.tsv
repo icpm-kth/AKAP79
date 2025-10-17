@@ -1,5 +1,5 @@
 !!SBtab  Document='AKAP79' SBtabVersion='1.0'	TableName='Parameter' TableTitle='Parameters in AKAP79 Model'  TableType='Quantity'
-!ID	!Name	index	!DefaultValue	!Median	!Std	!PriorDistribution	!Scale	!Unit
+!ID  !Name  index  !DefaultValue  !Median  !Std  !PriorDistribution  !Scale  !Unit
 k5_1	kf_Rii_C__RiiP_C	1	1.667836985	1.519	4	Normal distribution	log10	1/second
 k1_2	kf_RiiP_CxcAMP__RiiP_C_cAMP	2	0.094637887	-0.306	4	Normal distribution	log10	1/(micromolarity*second)
 k3_2	kf_RiiP_cAMPxC__RiiP_C_cAMP	3	-2.483544729	-2.264	4	Normal distribution	log10	1/(micromolarity*second)
