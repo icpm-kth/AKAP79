@@ -32,4 +32,4 @@ km3OFF	km3OFF	25	2.009602466	2	4	Normal distribution	log10	micromolarity
 km4OFF	km4OFF	25	2.009602466	2	4	Normal distribution	log10	micromolarity
 km3ON	km3ON	26	-0.005703976	0	4	Normal distribution	log10	micromolarity
 km4ON	km4ON	26	-0.005703976	0	4	Normal distribution	log10	micromolarity
-k1_2    kb_RiiP_CxcAMP__RiiP_C_cAMP     27       -0.01658557134     0.04743  4       Normal distribution     log10   1/second
+k1_2	kb_RiiP_CxcAMP__RiiP_C_cAMP	27	-0.01658557134	0.04743	4	Normal distribution	log10	1/second
