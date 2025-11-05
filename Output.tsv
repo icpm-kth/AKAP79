@@ -1,3 +1,14 @@
 !!SBtab	Document='AKAP79' SBtabVersion='1.0'	TableName='Output' TableTitle='Output in AKAP79 Model'  TableType='Quantity'	
 !ID	!Name	!Formula	!Unit
 AKAR4pOUT	AKAR4pOUT	(AKAR4p*5)*71.67+100	micromole/liter
+KD_14_OUT	KD_14_OUT	k1_4/k4_1 - RiiP*C/RiiP_C	1
+KD_12_OUT	KD_12_OUT	k1_2/k2_1 - RiiP_C_cAMP/(RiiP_C*cAMP)	1
+KD_43_OUT	KD_43_OUT	k4_3/k3_4 - RiiP_cAMP/(cAMP*RiiP)	1
+KD_23_OUT	KD_23_OUT	k2_3/k3_2 - RiiP_cAMP*C/RiiP_C_cAMP	1
+KD_78_OUT	KD_78_OUT	k7_8/k8_7 - cAMP*Rii/Rii_cAMP	1
+KD_56_OUT	KD_56_OUT	k5_6/k6_5 - Rii_C_cAMP/(Rii_C*cAMP)	1
+KD_76_OUT	KD_76_OUT	k7_6/k6_7 - Rii_C_cAMP/(Rii_cAMP*C)	1
+KD_58_OUT	KD_58_OUT	k5_8/k8_5 - Rii*C/Rii_C	1
+KD_44p_OUT	KD_44p_OUT	k4_4p/k4p_4 - RiiP_CaN/(RiiP*CaN)	1
+KD_33p_OUT	KD_33p_OUT	k3_3p/k3p_3 - RiiP_cAMP_CaN/(CaN*RiiP_cAMP)	1
+KD_1_OUT	KD_1_OUT	kf_C_AKAR4/kb_C_AKAR4 - AKAR4_C/(C*AKAR4)	1

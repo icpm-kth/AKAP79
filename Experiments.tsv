@@ -18,3 +18,4 @@ EX53_1000nM_FALSE__FALSE	EX53_1000nM_FALSE__FALSE	1	0	0	-30	Figure 3 in https://
 EX61_2000nM__TRUE___TRUE	EX61_2000nM__TRUE___TRUE	2	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
 EX62_2000nM__TRUE__FALSE	EX62_2000nM__TRUE__FALSE	2	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
 EX63_2000nM_FALSE__FALSE	EX63_2000nM_FALSE__FALSE	2	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX71_1000nM__TRUE___TRUE	EX71_1000nM__TRUE___TRUE	1	1.5	1	-30	Experiment to check thermodynamical constraints
