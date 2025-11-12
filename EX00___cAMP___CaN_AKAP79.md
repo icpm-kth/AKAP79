@@ -28,5 +28,6 @@ are present.
 | EX61 | 2000nM | TRUE  | TRUE   |
 | EX62 | 2000nM | TRUE  | FALSE  |
 | EX63 | 2000nM | FALSE | FALSE  |
+| EX71 | 1000nM | TRUE  | TRUE   |
 
 In alphabetical order, the file-names form the above table.
