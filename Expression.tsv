@@ -6,4 +6,3 @@ k4p_8	kf_RiiP_CaN__RiixCaN	b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1	1/s
 k3p_3	kb_CaNxRiiP_cAMP__RiiP_cAMP_CaN	b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3	1/s
 k4_4p	kf_RiiPxCaN__RiiP_CaN	b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF	1/(micromolarity*s)
 k3_3p	kf_CaNxRiiP_cAMP__RiiP_cAMP_CaN	b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF	1/(micromolarity*s)
-k2_1	kb_RiiP_CxcAMP__RiiP_C_cAMP	k1_2 * KD_T	1/s
