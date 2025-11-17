@@ -21,10 +21,10 @@ k3p_7off	k3p_7off	18	0	0	3	Normal distribution	log10	1/second
 k4p_8off	k4p_8off	18	0	0	3	Normal distribution	log10	1/second
 k3p_3off	k3p_3off	19	2	2	3	Normal distribution	log10	1/second
 k4p_4off	k4p_4off	19	0	0	3	Normal distribution	log10	1/second
-k3p_7on	k3p_7on	20	-0.365851062	0	0	Normal distribution	log10	1/second
-k4p_8on	k4p_8on	20	-0.365851062	0	0	Normal distribution	log10	1/second
-k3p_3on	k3p_3on	21	0.236153457	2	2	Normal distribution	log10	1/second
-k4p_4on	k4p_4on	21	0.236153457	2	2	Normal distribution	log10	1/second
+k3p_7on	k3p_7on	20	0	0	3	Normal distribution	log10	1/second
+k4p_8on	k4p_8on	20	0	0	3	Normal distribution	log10	1/second
+k3p_3on	k3p_3on	21	2	2	3	Normal distribution	log10	1/second
+k4p_4on	k4p_4on	21	2	2	3	Normal distribution	log10	1/second
 kf_C_AKAR4	kf_C_AKAR4	22	-1	-1	0.0969	Normal distribution	log10	1/(micromolarity*second)
 kb_C_AKAR4	kb_C_AKAR4	23	0	0	0.0969	Normal distribution	log10	1/second
 kcat_AKARp	kcat_AKARp	24	2	2	0.0969	Normal distribution	log10	1/second
