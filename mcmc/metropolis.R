@@ -86,8 +86,10 @@ if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
 	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
 	stdv <- parMCMC*0.5 + 0.5 + 0.5*max(parMCMC)
 }
-dprior <- dNormalPrior(mean=Median,sd=stdv)
-rprior <- rNormalPrior(mean=Median,sd=stdv)
+# dprior <- dNormalPrior(mean=Median,sd=stdv)
+# rprior <- rNormalPrior(mean=Median,sd=stdv)
+dprior <- dNormalPrior(mean=parMCMC,sd=stdv)
+rprior <- rNormalPrior(mean=parMCMC,sd=stdv)
 ## ----simulate-----------------------------------------------------------------
 if (use.mclapply){
 	sim <- simulator.c(experiments,modelName,parMap=log10ParMap)
@@ -121,7 +123,38 @@ if (assumeSystematicError){
 	llf <- logLikelihoodFunc(experiments)
 }
 
-X <- NULL # this is to suppress one intial warning
+llf <- function(parMCMC){
+  if (!("simulations" %in% names(attributes(parMCMC))) || any(is.na(attr(parMCMC,"simulations")))) {
+    warning("no simulations attached to parameter vector: attr(parMCMC,'simulations') is missing.")
+    return(-Inf)
+  } else {
+    simulations <- attr(parMCMC,"simulations")
+  }
+  simulations <- attr(parMCMC,"simulations")
+  n <- NCOL(parMCMC)
+  n.out <- sum(unlist(lapply(experiments,\(e) sum(!is.na(e$outputValues))))) # total number of valid values
+  L <- rep(-0.5*n.out*log(2*pi),n)
+  for (i in seq(length(experiments))){
+    #if (!("func" %in% names(simulations[[i]])) || any(is.na(simulations[[i]]$func))){
+    if (!("func" %in% names(simulations[[i]]))){
+      return(-Inf)
+    }
+    dimFunc <- dim(simulations[[i]]$func)
+    m <- head(dimFunc,2)
+    y <- t(experiments[[i]]$outputValues)
+    stdv <- t(experiments[[i]]$errorValues)
+    for (k in seq(n)){
+      h <- simulations[[i]]$func[,,k]
+      dim(h) <- m
+      stopifnot(all(dim(h)==dim(y)) && all(dim(y)==dim(stdv)))
+      L[k] <- L[k] - 0.5*sum(((y - h)/stdv)^2,na.rm=TRUE) - sum(log(stdv),na.rm=TRUE)
+    }
+  }
+  return(L)
+}
+
+
+X <- NULL # this is to suppress one initial warning
 sampleSize <- round(exp(seq(log(100),log(N),length.out=cycl)))
 
 ## save the chosen settings for this run
@@ -159,7 +192,7 @@ for (i in seq(cycl)){
 	names(x) <- rownames(sb$Parameter)
 	if (i < round(cycl/2)){
 		for (k in seq(5)){
-			s <- mhmcmc(x,100,h)
+			s <- mhmcmc(x,1000,h)
 			ar <- attr(s,"acceptanceRate")
 			ml <- max(attr(s,"logLikelihood"))
 			message(
@@ -193,7 +226,7 @@ for (i in seq(cycl)){
 		scale(cs),r,
 		scale(cs),cs
 		)
-	saveRDS(s,file=sampleFile)
+	# saveRDS(s,file=sampleFile)
 	## free up memory for next sample
 	ar <- as.integer(round(100*attr(s,"acceptanceRate")))
 	sr <- as.integer(round(100*attr(s,"swapRate")))
@@ -226,7 +259,7 @@ for (i in seq(cycl)){
 	)
 }
 time_ <- difftime(Sys.time(),start_time,units="min")
-saveRDS(X,
+# saveRDS(X,
 	file=sprintf("%s-final-sample-%i-%i-lb100-%i-duration-%i-minutes.RDS",
 		PREFIX,
 		r,cs,

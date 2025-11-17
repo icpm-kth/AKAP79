@@ -19,22 +19,28 @@ AKAP79_vf <- function(t, state, parameters) {
 	k6_7 = parameters[15];
 	k6_2 = parameters[16];
 	k5_8 = parameters[17];
-	AKAPoff_1 = parameters[18];
-	AKAPoff_3 = parameters[19];
-	AKAPon_1 = parameters[20];
-	AKAPon_3 = parameters[21];
-	kf_C_AKAR4 = parameters[22];
-	kb_C_AKAR4 = parameters[23];
-	kcat_AKARp = parameters[24];
-	kmOFF = parameters[25];
-	kmON = parameters[26];
-	KD_T = parameters[27];
-	b_AKAP = parameters[28];
-	AKAR4_ConservedConst = parameters[29];
-	CaN_ConservedConst = parameters[30];
-	Rii_C_ConservedConst = parameters[31];
-	cAMP_ConservedConst = parameters[32];
-	Rii_ConservedConst = parameters[33];
+	k3p_7off = parameters[18];
+	k4p_8off = parameters[19];
+	k3p_3off = parameters[20];
+	k4p_4off = parameters[21];
+	k3p_7on = parameters[22];
+	k4p_8on = parameters[23];
+	k3p_3on = parameters[24];
+	k4p_4on = parameters[25];
+	kf_C_AKAR4 = parameters[26];
+	kb_C_AKAR4 = parameters[27];
+	kcat_AKARp = parameters[28];
+	km3OFF = parameters[29];
+	km4OFF = parameters[30];
+	km3ON = parameters[31];
+	km4ON = parameters[32];
+	k2_1 = parameters[33];
+	b_AKAP = parameters[34];
+	AKAR4_ConservedConst = parameters[35];
+	CaN_ConservedConst = parameters[36];
+	Rii_C_ConservedConst = parameters[37];
+	cAMP_ConservedConst = parameters[38];
+	Rii_ConservedConst = parameters[39];
 ##	state variables
 	RiiP = state[1];
 	RiiP_cAMP = state[2];
@@ -48,13 +54,12 @@ AKAP79_vf <- function(t, state, parameters) {
 	AKAR4_C = state[10];
 	AKAR4p = state[11];
 ##	expressions
-	k3p_7 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k4p_4 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4p_8 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k3p_3 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
-	k2_1 = k1_2 * KD_T;
+	k3p_7 = b_AKAP * k3p_7on + (1 - b_AKAP) * k3p_7off;
+	k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
+	k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
+	k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
+	k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
 	Rii_C = (Rii_C_ConservedConst - (RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
@@ -113,22 +118,28 @@ AKAP79_jac <- function(t, state, parameters) {
 	k6_7 = parameters[15];
 	k6_2 = parameters[16];
 	k5_8 = parameters[17];
-	AKAPoff_1 = parameters[18];
-	AKAPoff_3 = parameters[19];
-	AKAPon_1 = parameters[20];
-	AKAPon_3 = parameters[21];
-	kf_C_AKAR4 = parameters[22];
-	kb_C_AKAR4 = parameters[23];
-	kcat_AKARp = parameters[24];
-	kmOFF = parameters[25];
-	kmON = parameters[26];
-	KD_T = parameters[27];
-	b_AKAP = parameters[28];
-	AKAR4_ConservedConst = parameters[29];
-	CaN_ConservedConst = parameters[30];
-	Rii_C_ConservedConst = parameters[31];
-	cAMP_ConservedConst = parameters[32];
-	Rii_ConservedConst = parameters[33];
+	k3p_7off = parameters[18];
+	k4p_8off = parameters[19];
+	k3p_3off = parameters[20];
+	k4p_4off = parameters[21];
+	k3p_7on = parameters[22];
+	k4p_8on = parameters[23];
+	k3p_3on = parameters[24];
+	k4p_4on = parameters[25];
+	kf_C_AKAR4 = parameters[26];
+	kb_C_AKAR4 = parameters[27];
+	kcat_AKARp = parameters[28];
+	km3OFF = parameters[29];
+	km4OFF = parameters[30];
+	km3ON = parameters[31];
+	km4ON = parameters[32];
+	k2_1 = parameters[33];
+	b_AKAP = parameters[34];
+	AKAR4_ConservedConst = parameters[35];
+	CaN_ConservedConst = parameters[36];
+	Rii_C_ConservedConst = parameters[37];
+	cAMP_ConservedConst = parameters[38];
+	Rii_ConservedConst = parameters[39];
 ##	state variables
 	RiiP = state[1];
 	RiiP_cAMP = state[2];
@@ -142,13 +153,12 @@ AKAP79_jac <- function(t, state, parameters) {
 	AKAR4_C = state[10];
 	AKAR4p = state[11];
 ##	expressions
-	k3p_7 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k4p_4 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4p_8 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k3p_3 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
-	k2_1 = k1_2 * KD_T;
+	k3p_7 = b_AKAP * k3p_7on + (1 - b_AKAP) * k3p_7off;
+	k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
+	k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
+	k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
+	k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
 	Rii_C = (Rii_C_ConservedConst - (RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
@@ -171,20 +181,20 @@ AKAP79_jac <- function(t, state, parameters) {
 	reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	reaction_2 = kcat_AKARp*AKAR4_C;
 	jac_ <- matrix(0.0,11,11)
-	jac_[1,1] <- -(k4_1*C+k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)))
+	jac_[1,1] <- -(k4_1*C+k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)))
 	jac_[2,1] <- k4_3*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
 	jac_[3,1] <- k4_1*C
 	jac_[5,1] <- k8_5*C-k4_1*C
 	jac_[6,1] <- -k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
-	jac_[8,1] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jac_[8,1] <- ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
 	jac_[1,2] <- k4_3*RiiP+k3_4
-	jac_[2,2] <- -(k4_3*RiiP+k3_4+k3_2*C+((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)))
+	jac_[2,2] <- -(k4_3*RiiP+k3_4+k3_2*C+((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN)))
 	jac_[3,2] <- k1_2*RiiP_C
 	jac_[4,2] <- k3_2*C-k1_2*RiiP_C
 	jac_[5,2] <- k8_5*C-k3_2*C
 	jac_[6,2] <- -(k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))+k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN)))
 	jac_[7,2] <- -k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))
-	jac_[9,2] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jac_[9,2] <- ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
 	jac_[1,3] <- k1_4
 	jac_[3,3] <- -(k1_4+k5_1+k1_2*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN)))
 	jac_[4,3] <- k1_2*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
@@ -192,8 +202,8 @@ AKAP79_jac <- function(t, state, parameters) {
 	jac_[7,3] <- -k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
 	jac_[1,4] <- k4_3*RiiP
 	jac_[2,4] <- k2_3-k4_3*RiiP
-	jac_[3,4] <- k1_2*RiiP_C+k1_2*KD_T-k5_1
-	jac_[4,4] <- -(k2_3+k1_2*RiiP_C+k1_2*KD_T)
+	jac_[3,4] <- k1_2*RiiP_C+k2_1-k5_1
+	jac_[4,4] <- -(k2_3+k1_2*RiiP_C+k2_1)
 	jac_[5,4] <- k2_3-k5_8
 	jac_[6,4] <- -k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))
 	jac_[7,4] <- -(k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C)))
@@ -219,21 +229,21 @@ AKAP79_jac <- function(t, state, parameters) {
 	jac_[5,7] <- k6_7-k5_8
 	jac_[6,7] <- k6_7-k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))
 	jac_[7,7] <- -(k6_7+k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))+k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))+k6_5+k6_2)
-	jac_[1,8] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3
-	jac_[2,8] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP
+	jac_[1,8] <- ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off
+	jac_[2,8] <- ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP
 	jac_[5,8] <- k8_5*C
 	jac_[6,8] <- -k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
-	jac_[8,8] <- -(((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)
-	jac_[9,8] <- -((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP
-	jac_[1,9] <- k4_3*RiiP+((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP
-	jac_[2,9] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3-k4_3*RiiP
+	jac_[8,8] <- -(((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)
+	jac_[9,8] <- -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP
+	jac_[1,9] <- k4_3*RiiP+((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP
+	jac_[2,9] <- ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off-k4_3*RiiP
 	jac_[3,9] <- k1_2*RiiP_C
 	jac_[4,9] <- -k1_2*RiiP_C
 	jac_[5,9] <- k8_5*C
-	jac_[6,9] <- b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1-(k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))+k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN)))
+	jac_[6,9] <- b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off-(k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))+k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN)))
 	jac_[7,9] <- -k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))
-	jac_[8,9] <- -((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP
-	jac_[9,9] <- -(((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)
+	jac_[8,9] <- -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP
+	jac_[9,9] <- -(((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)
 	jac_[3,10] <- -k5_1
 	jac_[5,10] <- kf_C_AKAR4*C+kb_C_AKAR4-(k8_5*C+k5_8)+kcat_AKARp
 	jac_[6,10] <- k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
@@ -267,22 +277,28 @@ AKAP79_jacp <- function(t, state, parameters) {
 	k6_7 = parameters[15];
 	k6_2 = parameters[16];
 	k5_8 = parameters[17];
-	AKAPoff_1 = parameters[18];
-	AKAPoff_3 = parameters[19];
-	AKAPon_1 = parameters[20];
-	AKAPon_3 = parameters[21];
-	kf_C_AKAR4 = parameters[22];
-	kb_C_AKAR4 = parameters[23];
-	kcat_AKARp = parameters[24];
-	kmOFF = parameters[25];
-	kmON = parameters[26];
-	KD_T = parameters[27];
-	b_AKAP = parameters[28];
-	AKAR4_ConservedConst = parameters[29];
-	CaN_ConservedConst = parameters[30];
-	Rii_C_ConservedConst = parameters[31];
-	cAMP_ConservedConst = parameters[32];
-	Rii_ConservedConst = parameters[33];
+	k3p_7off = parameters[18];
+	k4p_8off = parameters[19];
+	k3p_3off = parameters[20];
+	k4p_4off = parameters[21];
+	k3p_7on = parameters[22];
+	k4p_8on = parameters[23];
+	k3p_3on = parameters[24];
+	k4p_4on = parameters[25];
+	kf_C_AKAR4 = parameters[26];
+	kb_C_AKAR4 = parameters[27];
+	kcat_AKARp = parameters[28];
+	km3OFF = parameters[29];
+	km4OFF = parameters[30];
+	km3ON = parameters[31];
+	km4ON = parameters[32];
+	k2_1 = parameters[33];
+	b_AKAP = parameters[34];
+	AKAR4_ConservedConst = parameters[35];
+	CaN_ConservedConst = parameters[36];
+	Rii_C_ConservedConst = parameters[37];
+	cAMP_ConservedConst = parameters[38];
+	Rii_ConservedConst = parameters[39];
 ##	state variables
 	RiiP = state[1];
 	RiiP_cAMP = state[2];
@@ -296,13 +312,12 @@ AKAP79_jacp <- function(t, state, parameters) {
 	AKAR4_C = state[10];
 	AKAR4p = state[11];
 ##	expressions
-	k3p_7 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k4p_4 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4p_8 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k3p_3 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
-	k2_1 = k1_2 * KD_T;
+	k3p_7 = b_AKAP * k3p_7on + (1 - b_AKAP) * k3p_7off;
+	k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
+	k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
+	k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
+	k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
 	Rii_C = (Rii_C_ConservedConst - (RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
@@ -324,10 +339,10 @@ AKAP79_jacp <- function(t, state, parameters) {
 	reaction_37 = k3p_7*RiiP_cAMP_CaN;
 	reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	reaction_2 = kcat_AKARp*AKAR4_C;
-	jacp_ <- matrix(0.0,11,33)
+	jacp_ <- matrix(0.0,11,39)
 	jacp_[3,1] <- Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C)
-	jacp_[3,2] <- KD_T*RiiP_C_cAMP-RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
-	jacp_[4,2] <- RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))-KD_T*RiiP_C_cAMP
+	jacp_[3,2] <- -RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
+	jacp_[4,2] <- RiiP_C*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
 	jacp_[2,3] <- -RiiP_cAMP*C
 	jacp_[4,3] <- RiiP_cAMP*C
 	jacp_[5,3] <- -RiiP_cAMP*C
@@ -358,63 +373,63 @@ AKAP79_jacp <- function(t, state, parameters) {
 	jacp_[4,16] <- Rii_C_cAMP
 	jacp_[7,16] <- -Rii_C_cAMP
 	jacp_[5,17] <- Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C)
-	jacp_[1,18] <- -((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
-	jacp_[2,18] <- -((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
+	jacp_[2,18] <- -((b_AKAP*(1-b_AKAP))/km3ON+(1-b_AKAP)^2/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
 	jacp_[6,18] <- (1-b_AKAP)*RiiP_cAMP_CaN
-	jacp_[8,18] <- ((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN
-	jacp_[9,18] <- ((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN
-	jacp_[1,19] <- (1-b_AKAP)*RiiP_CaN-((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
-	jacp_[2,19] <- (1-b_AKAP)*RiiP_cAMP_CaN-((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
-	jacp_[8,19] <- ((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN
-	jacp_[9,19] <- ((b_AKAP*(1-b_AKAP))/kmON+(1-b_AKAP)^2/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN
-	jacp_[1,20] <- -(b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
-	jacp_[2,20] <- -(b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
-	jacp_[6,20] <- b_AKAP*RiiP_cAMP_CaN
-	jacp_[8,20] <- (b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN
-	jacp_[9,20] <- (b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN
-	jacp_[1,21] <- b_AKAP*RiiP_CaN-(b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
-	jacp_[2,21] <- b_AKAP*RiiP_cAMP_CaN-(b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
-	jacp_[8,21] <- (b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN
-	jacp_[9,21] <- (b_AKAP^2/kmON+((1-b_AKAP)*b_AKAP)/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN
-	jacp_[5,22] <- -C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p))
-	jacp_[10,22] <- C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p))
-	jacp_[5,23] <- AKAR4_C
-	jacp_[10,23] <- -AKAR4_C
-	jacp_[5,24] <- AKAR4_C
-	jacp_[10,24] <- -AKAR4_C
-	jacp_[11,24] <- AKAR4_C
-	jacp_[1,25] <- ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF^2
-	jacp_[2,25] <- (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF^2
-	jacp_[8,25] <- (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF^2
-	jacp_[9,25] <- (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF^2
-	jacp_[1,26] <- ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON^2
-	jacp_[2,26] <- (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON^2
-	jacp_[8,26] <- (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON^2
-	jacp_[9,26] <- (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON^2
-	jacp_[3,27] <- k1_2*RiiP_C_cAMP
-	jacp_[4,27] <- -k1_2*RiiP_C_cAMP
-	jacp_[1,28] <- (AKAPon_3-AKAPoff_3)*RiiP_CaN-((b_AKAP*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)/kmON+((1-b_AKAP)*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)-(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
-	jacp_[2,28] <- (AKAPon_3-AKAPoff_3)*RiiP_cAMP_CaN-((b_AKAP*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)/kmON+((1-b_AKAP)*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)-(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
-	jacp_[6,28] <- (AKAPon_1-AKAPoff_1)*RiiP_cAMP_CaN
-	jacp_[8,28] <- ((b_AKAP*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)/kmON+((1-b_AKAP)*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)-(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(AKAPon_3-AKAPoff_3)*RiiP_CaN-(AKAPon_1-AKAPoff_1)*RiiP_CaN
-	jacp_[9,28] <- ((b_AKAP*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)+b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1)/kmON+((1-b_AKAP)*(AKAPon_3-AKAPoff_3+AKAPon_1-AKAPoff_1)-(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(AKAPon_3-AKAPoff_3)*RiiP_cAMP_CaN-(AKAPon_1-AKAPoff_1)*RiiP_cAMP_CaN
-	jacp_[5,29] <- -kf_C_AKAR4*C
-	jacp_[10,29] <- kf_C_AKAR4*C
-	jacp_[1,30] <- -((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP
-	jacp_[2,30] <- -((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP
-	jacp_[8,30] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP
-	jacp_[9,30] <- ((b_AKAP*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmON+((1-b_AKAP)*(b_AKAP*AKAPon_3+(1-b_AKAP)*AKAPoff_3+b_AKAP*AKAPon_1+(1-b_AKAP)*AKAPoff_1))/kmOFF)*RiiP_cAMP
-	jacp_[3,31] <- k5_1
-	jacp_[5,31] <- k5_8
-	jacp_[7,31] <- k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
-	jacp_[1,32] <- -k4_3*RiiP
-	jacp_[2,32] <- k4_3*RiiP
-	jacp_[3,32] <- -k1_2*RiiP_C
-	jacp_[4,32] <- k1_2*RiiP_C
-	jacp_[6,32] <- k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))
-	jacp_[7,32] <- k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))
-	jacp_[5,33] <- -k8_5*C
-	jacp_[6,33] <- k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
+	jacp_[9,18] <- ((b_AKAP*(1-b_AKAP))/km3ON+(1-b_AKAP)^2/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN
+	jacp_[1,19] <- -((b_AKAP*(1-b_AKAP))/km4ON+(1-b_AKAP)^2/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jacp_[8,19] <- ((b_AKAP*(1-b_AKAP))/km4ON+(1-b_AKAP)^2/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN
+	jacp_[2,20] <- (1-b_AKAP)*RiiP_cAMP_CaN-((b_AKAP*(1-b_AKAP))/km3ON+(1-b_AKAP)^2/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
+	jacp_[9,20] <- ((b_AKAP*(1-b_AKAP))/km3ON+(1-b_AKAP)^2/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(1-b_AKAP)*RiiP_cAMP_CaN
+	jacp_[1,21] <- (1-b_AKAP)*RiiP_CaN-((b_AKAP*(1-b_AKAP))/km4ON+(1-b_AKAP)^2/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jacp_[8,21] <- ((b_AKAP*(1-b_AKAP))/km4ON+(1-b_AKAP)^2/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(1-b_AKAP)*RiiP_CaN
+	jacp_[2,22] <- -(b_AKAP^2/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
+	jacp_[6,22] <- b_AKAP*RiiP_cAMP_CaN
+	jacp_[9,22] <- (b_AKAP^2/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN
+	jacp_[1,23] <- -(b_AKAP^2/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jacp_[8,23] <- (b_AKAP^2/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN
+	jacp_[2,24] <- b_AKAP*RiiP_cAMP_CaN-(b_AKAP^2/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
+	jacp_[9,24] <- (b_AKAP^2/km3ON+((1-b_AKAP)*b_AKAP)/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-b_AKAP*RiiP_cAMP_CaN
+	jacp_[1,25] <- b_AKAP*RiiP_CaN-(b_AKAP^2/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jacp_[8,25] <- (b_AKAP^2/km4ON+((1-b_AKAP)*b_AKAP)/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-b_AKAP*RiiP_CaN
+	jacp_[5,26] <- -C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p))
+	jacp_[10,26] <- C*(AKAR4_ConservedConst-(AKAR4_C+AKAR4p))
+	jacp_[5,27] <- AKAR4_C
+	jacp_[10,27] <- -AKAR4_C
+	jacp_[5,28] <- AKAR4_C
+	jacp_[10,28] <- -AKAR4_C
+	jacp_[11,28] <- AKAR4_C
+	jacp_[2,29] <- (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF^2
+	jacp_[9,29] <- (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*(1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF^2
+	jacp_[1,30] <- ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF^2
+	jacp_[8,30] <- (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*(1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF^2
+	jacp_[2,31] <- (RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON^2
+	jacp_[9,31] <- (-RiiP_cAMP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON^2
+	jacp_[1,32] <- ((CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON^2
+	jacp_[8,32] <- (-(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP*b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON^2
+	jacp_[3,33] <- RiiP_C_cAMP
+	jacp_[4,33] <- -RiiP_C_cAMP
+	jacp_[1,34] <- (k4p_4on-k4p_4off)*RiiP_CaN-((b_AKAP*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/km4ON+((1-b_AKAP)*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))
+	jacp_[2,34] <- (k3p_3on-k3p_3off)*RiiP_cAMP_CaN-((b_AKAP*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/km3ON+((1-b_AKAP)*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP
+	jacp_[6,34] <- (k3p_7on-k3p_7off)*RiiP_cAMP_CaN
+	jacp_[8,34] <- ((b_AKAP*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)+b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off)/km4ON+((1-b_AKAP)*(k4p_4on-k4p_4off+k4p_8on-k4p_8off)-(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))-(k4p_4on-k4p_4off)*RiiP_CaN-(k4p_8on-k4p_8off)*RiiP_CaN
+	jacp_[9,34] <- ((b_AKAP*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)+b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off)/km3ON+((1-b_AKAP)*(k3p_3on-k3p_3off+k3p_7on-k3p_7off)-(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*(CaN_ConservedConst-(RiiP_CaN+RiiP_cAMP_CaN))*RiiP_cAMP-(k3p_3on-k3p_3off)*RiiP_cAMP_CaN-(k3p_7on-k3p_7off)*RiiP_cAMP_CaN
+	jacp_[5,35] <- -kf_C_AKAR4*C
+	jacp_[10,35] <- kf_C_AKAR4*C
+	jacp_[1,36] <- -((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP
+	jacp_[2,36] <- -((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP
+	jacp_[8,36] <- ((b_AKAP*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4ON+((1-b_AKAP)*(b_AKAP*k4p_4on+(1-b_AKAP)*k4p_4off+b_AKAP*k4p_8on+(1-b_AKAP)*k4p_8off))/km4OFF)*RiiP
+	jacp_[9,36] <- ((b_AKAP*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3ON+((1-b_AKAP)*(b_AKAP*k3p_3on+(1-b_AKAP)*k3p_3off+b_AKAP*k3p_7on+(1-b_AKAP)*k3p_7off))/km3OFF)*RiiP_cAMP
+	jacp_[3,37] <- k5_1
+	jacp_[5,37] <- k5_8
+	jacp_[7,37] <- k5_6*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
+	jacp_[1,38] <- -k4_3*RiiP
+	jacp_[2,38] <- k4_3*RiiP
+	jacp_[3,38] <- -k1_2*RiiP_C
+	jacp_[4,38] <- k1_2*RiiP_C
+	jacp_[6,38] <- k8_7*(Rii_ConservedConst-(RiiP+RiiP_cAMP+Rii_cAMP+RiiP_CaN+RiiP_cAMP_CaN-C-AKAR4_C))
+	jacp_[7,38] <- k5_6*(Rii_C_ConservedConst-(RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C))
+	jacp_[5,39] <- -k8_5*C
+	jacp_[6,39] <- k8_7*(cAMP_ConservedConst-(RiiP_cAMP+RiiP_C_cAMP+Rii_cAMP+Rii_C_cAMP+RiiP_cAMP_CaN))
 ## no names for return value
 	return(jacp_)
 }
@@ -440,22 +455,28 @@ AKAP79_func <- function(t, state, parameters) {
 	k6_7 = parameters[15];
 	k6_2 = parameters[16];
 	k5_8 = parameters[17];
-	AKAPoff_1 = parameters[18];
-	AKAPoff_3 = parameters[19];
-	AKAPon_1 = parameters[20];
-	AKAPon_3 = parameters[21];
-	kf_C_AKAR4 = parameters[22];
-	kb_C_AKAR4 = parameters[23];
-	kcat_AKARp = parameters[24];
-	kmOFF = parameters[25];
-	kmON = parameters[26];
-	KD_T = parameters[27];
-	b_AKAP = parameters[28];
-	AKAR4_ConservedConst = parameters[29];
-	CaN_ConservedConst = parameters[30];
-	Rii_C_ConservedConst = parameters[31];
-	cAMP_ConservedConst = parameters[32];
-	Rii_ConservedConst = parameters[33];
+	k3p_7off = parameters[18];
+	k4p_8off = parameters[19];
+	k3p_3off = parameters[20];
+	k4p_4off = parameters[21];
+	k3p_7on = parameters[22];
+	k4p_8on = parameters[23];
+	k3p_3on = parameters[24];
+	k4p_4on = parameters[25];
+	kf_C_AKAR4 = parameters[26];
+	kb_C_AKAR4 = parameters[27];
+	kcat_AKARp = parameters[28];
+	km3OFF = parameters[29];
+	km4OFF = parameters[30];
+	km3ON = parameters[31];
+	km4ON = parameters[32];
+	k2_1 = parameters[33];
+	b_AKAP = parameters[34];
+	AKAR4_ConservedConst = parameters[35];
+	CaN_ConservedConst = parameters[36];
+	Rii_C_ConservedConst = parameters[37];
+	cAMP_ConservedConst = parameters[38];
+	Rii_ConservedConst = parameters[39];
 ##	state variables
 	RiiP = state[1];
 	RiiP_cAMP = state[2];
@@ -469,13 +490,12 @@ AKAP79_func <- function(t, state, parameters) {
 	AKAR4_C = state[10];
 	AKAR4p = state[11];
 ##	expressions
-	k3p_7 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k4p_4 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4p_8 = b_AKAP * AKAPon_1 + (1 - b_AKAP) * AKAPoff_1;
-	k3p_3 = b_AKAP * AKAPon_3  +  (1 - b_AKAP)* AKAPoff_3;
-	k4_4p = b_AKAP * ((k4p_4 + k3p_7)/kmON ) + (1 - b_AKAP) * (k4p_4 + k3p_7) / kmOFF;
-	k3_3p = b_AKAP * ((k3p_3 + k4p_8)/kmON) + (1 - b_AKAP) * (k3p_3 + k4p_8)/kmOFF;
-	k2_1 = k1_2 * KD_T;
+	k3p_7 = b_AKAP * k3p_7on + (1 - b_AKAP) * k3p_7off;
+	k4p_4 = b_AKAP * k4p_4on  +  (1 - b_AKAP)* k4p_4off;
+	k4p_8 = b_AKAP * k4p_8on + (1 - b_AKAP) * k4p_8off;
+	k3p_3 = b_AKAP * k3p_3on  +  (1 - b_AKAP)* k3p_3off;
+	k4_4p = b_AKAP * ((k4p_4 + k4p_8)/km4ON ) + (1 - b_AKAP) * (k4p_4 + k4p_8) / km4OFF;
+	k3_3p = b_AKAP * ((k3p_3 + k3p_7)/km3ON) + (1 - b_AKAP) * (k3p_3 + k3p_7)/km3OFF;
 	AKAR4 = (AKAR4_ConservedConst - (AKAR4_C+AKAR4p));
 	CaN = (CaN_ConservedConst - (RiiP_CaN+RiiP_cAMP_CaN));
 	Rii_C = (Rii_C_ConservedConst - (RiiP_C+RiiP_C_cAMP+C+Rii_C_cAMP+AKAR4_C));
@@ -497,47 +517,64 @@ AKAP79_func <- function(t, state, parameters) {
 	reaction_37 = k3p_7*RiiP_cAMP_CaN;
 	reaction_1 = kf_C_AKAR4*C*AKAR4 - kb_C_AKAR4*AKAR4_C;
 	reaction_2 = kcat_AKARp*AKAR4_C;
-	func_ <- numeric(1)
+	func_ <- numeric(12)
 	func_[1] <- (AKAR4p*5)*71.67+100
-	names(func_) <- c("AKAR4pOUT")
+	func_[2] <- k1_4*RiiP_C - k4_1*RiiP*C
+	func_[3] <- k1_2*(RiiP_C*cAMP) - k2_1*RiiP_C_cAMP
+	func_[4] <- k4_3*(cAMP*RiiP) - k3_4*RiiP_cAMP
+	func_[5] <- k2_3*RiiP_C_cAMP - k3_2*RiiP_cAMP*C
+	func_[6] <- k7_8*Rii_cAMP - k8_7*cAMP*Rii
+	func_[7] <- k5_6*(Rii_C*cAMP) - k6_5*Rii_C_cAMP
+	func_[8] <- k7_6*(Rii_cAMP*C) - k6_7*Rii_C_cAMP
+	func_[9] <- k5_8*Rii_C - k8_5*Rii*C
+	func_[10] <- k4_4p*(RiiP*CaN) - k4p_4*RiiP_CaN
+	func_[11] <- k3_3p*(CaN*RiiP_cAMP) - k3p_3*RiiP_cAMP_CaN
+	func_[12] <- kf_C_AKAR4*(C*AKAR4) - kb_C_AKAR4*AKAR4_C
+	names(func_) <- c("AKAR4pOUT", "KD_14_OUT", "KD_12_OUT", "KD_43_OUT", "KD_23_OUT", "KD_78_OUT", "KD_56_OUT", "KD_76_OUT", "KD_58_OUT", "KD_44p_OUT", "KD_33p_OUT", "KD_1_OUT")
 	return(func_)
 }
 
 AKAP79_default <- function(t) {
 ##	constants
-	parameters <- numeric(33)
-	parameters[1] <- 46.5411365826226
-	parameters[2] <- 1.24347737295428
-	parameters[3] <- 0.00328439415820813
-	parameters[4] <- 0.587853369688012
-	parameters[5] <- 0.0730805556930531
-	parameters[6] <- 0.00712225662720034
-	parameters[7] <- 0.00519774644439109
-	parameters[8] <- 0.00117992862984651
-	parameters[9] <- 0.00708844744872235
-	parameters[10] <- 0.0833086316093731
-	parameters[11] <- 0.665243673375593
-	parameters[12] <- 0.594408977425014
-	parameters[13] <- 0.100291450155288
-	parameters[14] <- 0.0979128290361247
-	parameters[15] <- 0.0222138094412742
-	parameters[16] <- 33.8372184382292
-	parameters[17] <- 0.000200941903978572
-	parameters[18] <- 0.294046396805502
-	parameters[19] <- 14.9166596278814
-	parameters[20] <- 0.43067428164868
-	parameters[21] <- 1.72247710096425
-	parameters[22] <- 0.0180933753586079
-	parameters[23] <- 0.104602112392241
-	parameters[24] <- 10.1811826795126
-	parameters[25] <- 102.235674360709
-	parameters[26] <- 0.986951983065571
-	parameters[27] <- 0.667954721425184
-	parameters[29] <- 0.2
-	parameters[30] <- 1.5
-	parameters[31] <- 0.63
-	parameters[33] <- 6.3
-	names(parameters) <- c("k5_1", "k1_2", "k3_2", "k2_3", "k3_4", "k4_3", "k4_1", "k1_4", "k8_7", "k7_8", "k5_6", "k6_5", "k8_5", "k7_6", "k6_7", "k6_2", "k5_8", "AKAPoff_1", "AKAPoff_3", "AKAPon_1", "AKAPon_3", "kf_C_AKAR4", "kb_C_AKAR4", "kcat_AKARp", "kmOFF", "kmON", "KD_T", "b_AKAP", "AKAR4_ConservedConst", "CaN_ConservedConst", "Rii_C_ConservedConst", "cAMP_ConservedConst", "Rii_ConservedConst")
+	parameters <- numeric(39)
+	parameters[1] <- 1000
+	parameters[2] <- 100
+	parameters[3] <- 100
+	parameters[4] <- 100
+	parameters[5] <- 100
+	parameters[6] <- 10
+	parameters[7] <- 1e-06
+	parameters[8] <- 1e-06
+	parameters[9] <- 0.001
+	parameters[10] <- 100
+	parameters[11] <- 10
+	parameters[12] <- 1000
+	parameters[13] <- 1
+	parameters[14] <- 1000
+	parameters[15] <- 1
+	parameters[16] <- 1000
+	parameters[17] <- 1
+	parameters[18] <- 1
+	parameters[19] <- 1
+	parameters[20] <- 100
+	parameters[21] <- 1
+	parameters[22] <- 1
+	parameters[23] <- 1
+	parameters[24] <- 100
+	parameters[25] <- 100
+	parameters[26] <- 0.1
+	parameters[27] <- 1
+	parameters[28] <- 100
+	parameters[29] <- 100
+	parameters[30] <- 100
+	parameters[31] <- 1
+	parameters[32] <- 1
+	parameters[33] <- 1000
+	parameters[35] <- 0.2
+	parameters[36] <- 1.5
+	parameters[37] <- 0.63
+	parameters[39] <- 6.3
+	names(parameters) <- c("k5_1", "k1_2", "k3_2", "k2_3", "k3_4", "k4_3", "k4_1", "k1_4", "k8_7", "k7_8", "k5_6", "k6_5", "k8_5", "k7_6", "k6_7", "k6_2", "k5_8", "k3p_7off", "k4p_8off", "k3p_3off", "k4p_4off", "k3p_7on", "k4p_8on", "k3p_3on", "k4p_4on", "kf_C_AKAR4", "kb_C_AKAR4", "kcat_AKARp", "km3OFF", "km4OFF", "km3ON", "km4ON", "k2_1", "b_AKAP", "AKAR4_ConservedConst", "CaN_ConservedConst", "Rii_C_ConservedConst", "cAMP_ConservedConst", "Rii_ConservedConst")
 	return(parameters)
 }
 
@@ -561,22 +598,28 @@ AKAP79_init <- function(t, parameters) {
 	k6_7 = parameters[15];
 	k6_2 = parameters[16];
 	k5_8 = parameters[17];
-	AKAPoff_1 = parameters[18];
-	AKAPoff_3 = parameters[19];
-	AKAPon_1 = parameters[20];
-	AKAPon_3 = parameters[21];
-	kf_C_AKAR4 = parameters[22];
-	kb_C_AKAR4 = parameters[23];
-	kcat_AKARp = parameters[24];
-	kmOFF = parameters[25];
-	kmON = parameters[26];
-	KD_T = parameters[27];
-	b_AKAP = parameters[28];
-	AKAR4_ConservedConst = parameters[29];
-	CaN_ConservedConst = parameters[30];
-	Rii_C_ConservedConst = parameters[31];
-	cAMP_ConservedConst = parameters[32];
-	Rii_ConservedConst = parameters[33];
+	k3p_7off = parameters[18];
+	k4p_8off = parameters[19];
+	k3p_3off = parameters[20];
+	k4p_4off = parameters[21];
+	k3p_7on = parameters[22];
+	k4p_8on = parameters[23];
+	k3p_3on = parameters[24];
+	k4p_4on = parameters[25];
+	kf_C_AKAR4 = parameters[26];
+	kb_C_AKAR4 = parameters[27];
+	kcat_AKARp = parameters[28];
+	km3OFF = parameters[29];
+	km4OFF = parameters[30];
+	km3ON = parameters[31];
+	km4ON = parameters[32];
+	k2_1 = parameters[33];
+	b_AKAP = parameters[34];
+	AKAR4_ConservedConst = parameters[35];
+	CaN_ConservedConst = parameters[36];
+	Rii_C_ConservedConst = parameters[37];
+	cAMP_ConservedConst = parameters[38];
+	Rii_ConservedConst = parameters[39];
 	state <- numeric(11)
 	names(state) <- c("RiiP", "RiiP_cAMP", "RiiP_C", "RiiP_C_cAMP", "C", "Rii_cAMP", "Rii_C_cAMP", "RiiP_CaN", "RiiP_cAMP_CaN", "AKAR4_C", "AKAR4p")
 	return(state)
