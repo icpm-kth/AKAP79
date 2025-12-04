@@ -1,16 +1,16 @@
 !!SBtab	Document='AKAP79' SBtabVersion='1.0'	TableName='Output' TableTitle='Output in AKAP79 Model'  TableType='Quantity'	
 !ID	!Name	!Formula	!Unit
 AKAR4pOUT	AKAR4pOUT	(AKAR4p*5)*71.67+100	micromole/liter
-KD_14_OUT	KD_14_OUT	k1_4*RiiP_C - k4_1*RiiP*C	1
-KD_12_OUT	KD_12_OUT	k1_2*(RiiP_C*cAMP) - k2_1*RiiP_C_cAMP	1
-KD_43_OUT	KD_43_OUT	k4_3*(cAMP*RiiP) - k3_4*RiiP_cAMP	1
-KD_23_OUT	KD_23_OUT	k2_3*RiiP_C_cAMP - k3_2*RiiP_cAMP*C	1
-KD_78_OUT	KD_78_OUT	k7_8*Rii_cAMP - k8_7*cAMP*Rii	1
-KD_56_OUT	KD_56_OUT	k5_6*(Rii_C*cAMP) - k6_5*Rii_C_cAMP	1
-KD_76_OUT	KD_76_OUT	k7_6*(Rii_cAMP*C) - k6_7*Rii_C_cAMP	1
-KD_58_OUT	KD_58_OUT	k5_8*Rii_C - k8_5*Rii*C	1
-KD_44p_OUT	KD_44p_OUT	k4_4p*(RiiP*CaN) - k4p_4*RiiP_CaN	1
-KD_33p_OUT	KD_33p_OUT	k3_3p*(CaN*RiiP_cAMP) - k3p_3*RiiP_cAMP_CaN	1
-KD_1_OUT	KD_1_OUT	kf_C_AKAR4*(C*AKAR4) - kb_C_AKAR4*AKAR4_C	1
+flux_14_OUT	flux_14_OUT	k1_4*RiiP_C - k4_1*RiiP*C	1
+flux_12_OUT	flux_12_OUT	k1_2*(RiiP_C*cAMP) - k2_1*RiiP_C_cAMP	1
+flux_43_OUT	flux_43_OUT	k4_3*(cAMP*RiiP) - k3_4*RiiP_cAMP	1
+flux_23_OUT	flux_23_OUT	k2_3*RiiP_C_cAMP - k3_2*RiiP_cAMP*C	1
+flux_78_OUT	flux_78_OUT	k7_8*Rii_cAMP - k8_7*cAMP*Rii	1
+flux_56_OUT	flux_56_OUT	k5_6*(Rii_C*cAMP) - k6_5*Rii_C_cAMP	1
+flux_76_OUT	flux_76_OUT	k7_6*(Rii_cAMP*C) - k6_7*Rii_C_cAMP	1
+flux_58_OUT	flux_58_OUT	k5_8*Rii_C - k8_5*Rii*C	1
+flux_44p_OUT	flux_44p_OUT	k4_4p*(RiiP*CaN) - k4p_4*RiiP_CaN	1
+flux_33p_OUT	flux_33p_OUT	k3_3p*(CaN*RiiP_cAMP) - k3p_3*RiiP_cAMP_CaN	1
+flux_1_OUT	flux_1_OUT	kf_C_AKAR4*(C*AKAR4) - kb_C_AKAR4*AKAR4_C	1
 
 
