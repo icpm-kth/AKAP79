@@ -1,21 +1,21 @@
 !!SBtab Document='AKAP79' Version='1.0' TableName='Experiments' TableType='QuantityMatrix'						
-!ID	!Name	>cAMP	>CaN	>b_AKAP	!T0	!Comment
-EX11____0nM__TRUE___TRUE	EX11____0nM__TRUE___TRUE	0	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX12____0nM__TRUE__FALSE	EX12____0nM__TRUE__FALSE	0	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX13____0nM_FALSE__FALSE	EX13____0nM_FALSE__FALSE	0	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX21__100nM__TRUE___TRUE	EX21__100nM__TRUE___TRUE	0.1	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX22__100nM__TRUE__FALSE	EX22__100nM__TRUE__FALSE	0.1	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX23__100nM_FALSE__FALSE	EX23__100nM_FALSE__FALSE	0.1	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX31__200nM__TRUE___TRUE	EX31__200nM__TRUE___TRUE	0.2	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX32__200nM__TRUE__FALSE	EX32__200nM__TRUE__FALSE	0.2	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX33__200nM_FALSE__FALSE	EX33__200nM_FALSE__FALSE	0.2	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX41__500nM__TRUE___TRUE	EX41__500nM__TRUE___TRUE	0.5	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX42__500nM__TRUE__FALSE	EX42__500nM__TRUE__FALSE	0.5	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX43__500nM_FALSE__FALSE	EX43__500nM_FALSE__FALSE	0.5	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX51_1000nM__TRUE___TRUE	EX51_1000nM__TRUE___TRUE	1	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX52_1000nM__TRUE__FALSE	EX52_1000nM__TRUE__FALSE	1	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX53_1000nM_FALSE__FALSE	EX53_1000nM_FALSE__FALSE	1	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX61_2000nM__TRUE___TRUE	EX61_2000nM__TRUE___TRUE	2	1.5	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX62_2000nM__TRUE__FALSE	EX62_2000nM__TRUE__FALSE	2	1.5	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX63_2000nM_FALSE__FALSE	EX63_2000nM_FALSE__FALSE	2	0	0	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
-EX71_1000nM__TRUE___TRUE	EX71_1000nM__TRUE___TRUE	1	1.5	1	-30	Experiment to check thermodynamical constraints
+!ID	!Name	>cAMP	>CaN	>RiiP	>b_AKAP	>b_all_reactions	!T0	!Comment
+EX11____0nM__TRUE___TRUE	EX11____0nM__TRUE___TRUE	0	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX12____0nM__TRUE__FALSE	EX12____0nM__TRUE__FALSE	0	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX13____0nM_FALSE__FALSE	EX13____0nM_FALSE__FALSE	0	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX21__100nM__TRUE___TRUE	EX21__100nM__TRUE___TRUE	0.1	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX22__100nM__TRUE__FALSE	EX22__100nM__TRUE__FALSE	0.1	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX23__100nM_FALSE__FALSE	EX23__100nM_FALSE__FALSE	0.1	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX31__200nM__TRUE___TRUE	EX31__200nM__TRUE___TRUE	0.2	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX32__200nM__TRUE__FALSE	EX32__200nM__TRUE__FALSE	0.2	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX33__200nM_FALSE__FALSE	EX33__200nM_FALSE__FALSE	0.2	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX41__500nM__TRUE___TRUE	EX41__500nM__TRUE___TRUE	0.5	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX42__500nM__TRUE__FALSE	EX42__500nM__TRUE__FALSE	0.5	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX43__500nM_FALSE__FALSE	EX43__500nM_FALSE__FALSE	0.5	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX51_1000nM__TRUE___TRUE	EX51_1000nM__TRUE___TRUE	1	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX52_1000nM__TRUE__FALSE	EX52_1000nM__TRUE__FALSE	1	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX53_1000nM_FALSE__FALSE	EX53_1000nM_FALSE__FALSE	1	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX61_2000nM__TRUE___TRUE	EX61_2000nM__TRUE___TRUE	2	1.5	0	1	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX62_2000nM__TRUE__FALSE	EX62_2000nM__TRUE__FALSE	2	1.5	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX63_2000nM_FALSE__FALSE	EX63_2000nM_FALSE__FALSE	2	0	0	0	1	-30	Figure 3 in https://doi.org/10.7554/eLife.68164
+EX71_1000nM__TRUE___TRUE	EX71_1000nM__TRUE___TRUE	1	1.5	6.3	1	0	-30	Experiment to check thermodynamical constraints

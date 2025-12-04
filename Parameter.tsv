@@ -1,23 +1,22 @@
 !!SBtab Document='AKAP79' SBtabVersion='1.0'	TableName='Parameter' TableTitle='Parameters in AKAP79 Model'  TableType='Quantity'							
 !ID	!Name	index	!DefaultValue	!Median	!Std	!PriorDistribution	!Scale	!Unit
-<<<<<<< HEAD
 k5_1	kf_Rii_C__RiiP_C	1	3	3	3	Normal distribution	log10	1/second
-k1_2	kf_RiiP_CxcAMP__RiiP_C_cAMP	2	3	3	3	Normal distribution	log10	1/(micromolarity*second)
-k3_2	kf_RiiP_cAMPxC__RiiP_C_cAMP	3	2	2	3	Normal distribution	log10	1/(micromolarity*second)
-k2_3	kb_RiiP_cAMPxC__RiiP_C_cAMP	4	2	2	3	Normal distribution	log10	1/second
-k3_4	kb_RiiPXcAMP__RiiP_cAMP	5	1	1	3	Normal distribution	log10	1/second
-k4_3	kf_RiiPXcAMP__RiiP_cAMP	6	1	1	3	Normal distribution	log10	1/(micromolarity*second)
-k4_1	kf_RiiPxC__RiiP_C	7	-5	-5	3	Normal distribution	log10	1/(micromolarity*second)
-k1_4	kb_RiiPxC__RiiP_C	8	-5	-5	3	Normal distribution	log10	1/second
-k8_7	kf_cAMPxRii__Rii_cAMP	9	2	2	3	Normal distribution	log10	1/(micromolarity*second)
-k7_8	kb_cAMPxRii__Rii_cAMP	10	2	2	3	Normal distribution	log10	1/second
-k5_6	kf_Rii_CxcAMP__Rii_C_cAMP	11	1	1	3	Normal distribution	log10	1/(micromolarity*second)
-k6_5	kb_Rii_CxcAMP__Rii_C_cAMP	12	-2	-2	3	Normal distribution	log10	1/second
-k8_5	kf_RiixC__Rii_C	13	0	0	3	Normal distribution	log10	1/(micromolarity*second)
-k7_6	kf_Rii_cAMPxC__Rii_C_cAMP	14	3	3	3	Normal distribution	log10	1/(micromolarity*second)
+k1_2	kf_RiiP_CxcAMP__RiiP_C_cAMP	2	-2	-2	3	Normal distribution	log10	1/(micromolarity*second)
+k3_2	kf_RiiP_cAMPxC__RiiP_C_cAMP	3	-1	-1	3	Normal distribution	log10	1/(micromolarity*second)
+k2_3	kb_RiiP_cAMPxC__RiiP_C_cAMP	4	1	1	3	Normal distribution	log10	1/second
+k3_4	kb_RiiPXcAMP__RiiP_cAMP	5	-1	-1	3	Normal distribution	log10	1/second
+k4_3	kf_RiiPXcAMP__RiiP_cAMP	6	-1	-1	3	Normal distribution	log10	1/(micromolarity*second)
+k4_1	kf_RiiPxC__RiiP_C	7	-1	-1	3	Normal distribution	log10	1/(micromolarity*second)
+k1_4	kb_RiiPxC__RiiP_C	8	-1	-1	3	Normal distribution	log10	1/second
+k8_7	kf_cAMPxRii__Rii_cAMP	9	1	1	3	Normal distribution	log10	1/(micromolarity*second)
+k7_8	kb_cAMPxRii__Rii_cAMP	10	1	1	3	Normal distribution	log10	1/second
+k5_6	kf_Rii_CxcAMP__Rii_C_cAMP	11	3	3	3	Normal distribution	log10	1/(micromolarity*second)
+k6_5	kb_Rii_CxcAMP__Rii_C_cAMP	12	1	1	3	Normal distribution	log10	1/second
+k8_5	kf_RiixC__Rii_C	13	-1	-1	3	Normal distribution	log10	1/(micromolarity*second)
+k7_6	kf_Rii_cAMPxC__Rii_C_cAMP	14	2	2	3	Normal distribution	log10	1/(micromolarity*second)
 k6_7	kb_Rii_cAMPxC__Rii_C_cAMP	15	0	0	3	Normal distribution	log10	1/second
 k6_2	kf_Rii_C_cAMP__RiiP_C_cAMP	16	3	3	3	Normal distribution	log10	1/second
-k5_8	kb_RiixC__Rii_C	17	0	0	3	Normal distribution	log10	1/second
+k5_8	kb_RiixC__Rii_C	17	-1	-1	3	Normal distribution	log10	1/second
 k3p_7off	k3p_7off	18	0	0	3	Normal distribution	log10	1/second
 k4p_8off	k4p_8off	18	0	0	3	Normal distribution	log10	1/second
 k3p_3off	k3p_3off	19	2	2	3	Normal distribution	log10	1/second
@@ -26,33 +25,6 @@ k3p_7on	k3p_7on	20	0	0	3	Normal distribution	log10	1/second
 k4p_8on	k4p_8on	20	0	0	3	Normal distribution	log10	1/second
 k3p_3on	k3p_3on	21	2	2	3	Normal distribution	log10	1/second
 k4p_4on	k4p_4on	21	2	2	3	Normal distribution	log10	1/second
-=======
-k5_1	kf_Rii_C__RiiP_C	1	3	3	1	Normal distribution	log10	1/second
-k1_2	kf_RiiP_CxcAMP__RiiP_C_cAMP	2	2	2	1	Normal distribution	log10	1/(micromolarity*second)
-k3_2	kf_RiiP_cAMPxC__RiiP_C_cAMP	3	2	2	1	Normal distribution	log10	1/(micromolarity*second)
-k2_3	kb_RiiP_cAMPxC__RiiP_C_cAMP	4	2	2	1	Normal distribution	log10	1/second
-k3_4	kb_RiiPXcAMP__RiiP_cAMP	5	2	2	1	Normal distribution	log10	1/second
-k4_3	kf_RiiPXcAMP__RiiP_cAMP	6	1	1	1	Normal distribution	log10	1/(micromolarity*second)
-k4_1	kf_RiiPxC__RiiP_C	7	-6	-6	1	Normal distribution	log10	1/(micromolarity*second)
-k1_4	kb_RiiPxC__RiiP_C	8	-6	-6	1	Normal distribution	log10	1/second
-k8_7	kf_cAMPxRii__Rii_cAMP	9	-3	-3	1	Normal distribution	log10	1/(micromolarity*second)
-k7_8	kb_cAMPxRii__Rii_cAMP	10	2	2	1	Normal distribution	log10	1/second
-k5_6	kf_Rii_CxcAMP__Rii_C_cAMP	11	1	1	1	Normal distribution	log10	1/(micromolarity*second)
-k6_5	kb_Rii_CxcAMP__Rii_C_cAMP	12	3	3	1	Normal distribution	log10	1/second
-k8_5	kf_RiixC__Rii_C	13	0	0	1	Normal distribution	log10	1/(micromolarity*second)
-k7_6	kf_Rii_cAMPxC__Rii_C_cAMP	14	3	3	1	Normal distribution	log10	1/(micromolarity*second)
-k6_7	kb_Rii_cAMPxC__Rii_C_cAMP	15	0	0	1	Normal distribution	log10	1/second
-k6_2	kf_Rii_C_cAMP__RiiP_C_cAMP	16	3	3	1	Normal distribution	log10	1/second
-k5_8	kb_RiixC__Rii_C	17	0	0	1	Normal distribution	log10	1/second
-k3p_7off	k3p_7off	18	0	0	1	Normal distribution	log10	1/second
-k4p_8off	k4p_8off	18	0	0	1	Normal distribution	log10	1/second
-k3p_3off	k3p_3off	19	2	2	1	Normal distribution	log10	1/second
-k4p_4off	k4p_4off	19	0	0	1	Normal distribution	log10	1/second
-k3p_7on	k3p_7on	20	0	0	1	Normal distribution	log10	1/second
-k4p_8on	k4p_8on	20	0	0	1	Normal distribution	log10	1/second
-k3p_3on	k3p_3on	21	2	2	1	Normal distribution	log10	1/second
-k4p_4on	k4p_4on	21	2	2	1	Normal distribution	log10	1/second
->>>>>>> refs/remotes/origin/thermodynamic-constraints-synthetic-data
 kf_C_AKAR4	kf_C_AKAR4	22	-1	-1	0.0969	Normal distribution	log10	1/(micromolarity*second)
 kb_C_AKAR4	kb_C_AKAR4	23	0	0	0.0969	Normal distribution	log10	1/second
 kcat_AKARp	kcat_AKARp	24	2	2	0.0969	Normal distribution	log10	1/second
@@ -60,4 +32,5 @@ km3OFF	km3OFF	25	2	2	0.176	Normal distribution	log10	micromolarity
 km4OFF	km4OFF	25	2	2	0.176	Normal distribution	log10	micromolarity
 km3ON	km3ON	26	0	0	0.176	Normal distribution	log10	micromolarity
 km4ON	km4ON	26	0	0	0.176	Normal distribution	log10	micromolarity
-k2_1	k2_1	27	3	3	1	Normal distribution	log10	micromolarity
+k2_1	k2_1	27	0	0	3	Normal distribution	log10	micromolarity
+
