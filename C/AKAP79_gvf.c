@@ -853,21 +853,6 @@ int AKAP79_default(double t, double *p_){
 /* 	constants   */
 	memset(p_,0,sizeof(double)*40); /* initialize with 0.0 */
 	p_[_k5_1] = 1000;
-<<<<<<< Updated upstream
-	p_[_k1_2] = 1000;
-	p_[_k3_2] = 100;
-	p_[_k2_3] = 100;
-	p_[_k3_4] = 10;
-	p_[_k4_3] = 10;
-	p_[_k4_1] = 1e-05;
-	p_[_k1_4] = 1e-05;
-	p_[_k8_7] = 100;
-	p_[_k7_8] = 100;
-	p_[_k5_6] = 10;
-	p_[_k6_5] = 0.01;
-	p_[_k8_5] = 1;
-	p_[_k7_6] = 1000;
-=======
 	p_[_k1_2] = 0.01;
 	p_[_k3_2] = 0.1;
 	p_[_k2_3] = 10;
@@ -881,7 +866,6 @@ int AKAP79_default(double t, double *p_){
 	p_[_k6_5] = 10;
 	p_[_k8_5] = 0.1;
 	p_[_k7_6] = 100;
->>>>>>> Stashed changes
 	p_[_k6_7] = 1;
 	p_[_k6_2] = 1000;
 	p_[_k5_8] = 0.1;
