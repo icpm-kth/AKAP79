@@ -553,21 +553,6 @@ AKAP79_default <- function(t) {
 ##	constants
 	parameters <- numeric(40)
 	parameters[1] <- 1000
-<<<<<<< Updated upstream
-	parameters[2] <- 1000
-	parameters[3] <- 100
-	parameters[4] <- 100
-	parameters[5] <- 10
-	parameters[6] <- 10
-	parameters[7] <- 1e-05
-	parameters[8] <- 1e-05
-	parameters[9] <- 100
-	parameters[10] <- 100
-	parameters[11] <- 10
-	parameters[12] <- 0.01
-	parameters[13] <- 1
-	parameters[14] <- 1000
-=======
 	parameters[2] <- 0.01
 	parameters[3] <- 0.1
 	parameters[4] <- 10
@@ -581,7 +566,6 @@ AKAP79_default <- function(t) {
 	parameters[12] <- 10
 	parameters[13] <- 0.1
 	parameters[14] <- 100
->>>>>>> Stashed changes
 	parameters[15] <- 1
 	parameters[16] <- 1000
 	parameters[17] <- 0.1
