@@ -1,3 +1,3 @@
 !!SBtab Document='AKAP79' Version='1.0' TableName='EX71_1000nM__TRUE___TRUE' TableType='QuantityMatrix'
 !TimePoint	!Time	>flux_14_OUT	~flux_14_OUT	>flux_12_OUT	~flux_12_OUT	>flux_43_OUT	~flux_43_OUT	>flux_23_OUT	~flux_23_OUT	>flux_78_OUT	~flux_78_OUT	>flux_56_OUT	~flux_56_OUT	>flux_76_OUT	~flux_76_OUT	>flux_58_OUT	~flux_58_OUT
-EX071T125	605	0	0.1	0	0.1	0	0.1	0	0.1	0	0.1	0	0.1	0	0.1	0	0.1
+EX071T125	605	0	0.01	0	0.01	0	0.01	0	0.01	0	0.01	0	0.01	0	0.01	0	0.01
