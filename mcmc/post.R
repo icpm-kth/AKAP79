@@ -109,15 +109,24 @@ cm <- function(x){
 	return(y)
 }
 
-makePlots <- function(Q,yl=c(90,200),...){
+makePlots <- function(Q,n_experiments = NULL,yl=c(90,200),...){
 	ex <- Q$experiments
 	sb <- Q$sbtab
 	s_ <- Q$simulations
 	par(...)
-	for (i in seq_along(ex)){
+
+	if (is.null(n_experiments)){
+		vec_exp <- seq_along(ex)
+	} else if (is.numeric(n_experiments)){
+		vec_exp <- 1:n_experiments
+	} else {
+		error("Incorrect values for n_experiments")
+	}
+	
+	for (i in vec_exp){
 		t_ <- ex[[i]]$outputTimes
-		y_ <- t(ex[[i]]$outputValues)
-		e_ <- t(ex[[i]]$errorValues)
+		y_ <- t(ex[[i]]$outputValues[,1])
+		e_ <- t(ex[[i]]$errorValues[,1])
 		h_ <- s_[[i]]$func['AKAR4pOUT',,]
 		matplot(t_,h_,
 			type="l",
