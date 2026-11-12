@@ -1,13 +1,13 @@
 id	formula	unit
 AKAR4pOUT	(AKAR4p*5)*71.67+100	µM
-flux_14_OUT	k1_4*RiiP_C - k4_1*RiiP*C	1
-flux_12_OUT	k1_2*(RiiP_C*cAMP) - k2_1*RiiP_C_cAMP	1
-flux_43_OUT	k4_3*(cAMP*RiiP) - k3_4*RiiP_cAMP	1
-flux_23_OUT	k2_3*RiiP_C_cAMP - k3_2*RiiP_cAMP*C	1
-flux_78_OUT	k7_8*Rii_cAMP - k8_7*cAMP*Rii	1
-flux_56_OUT	k5_6*(Rii_C*cAMP) - k6_5*Rii_C_cAMP	1
-flux_76_OUT	k7_6*(Rii_cAMP*C) - k6_7*Rii_C_cAMP	1
-flux_58_OUT	k5_8*Rii_C - k8_5*Rii*C 1
-flux_44p_OUT	k4_4p*(RiiP*CaN) - k4p_4*RiiP_CaN	1
-flux_33p_OUT	k3_3p*(CaN*RiiP_cAMP) - k3p_3*RiiP_cAMP_CaN	1
-flux_1_OUT	kf_C_AKAR4*(C*AKAR4) - kb_C_AKAR4*AKAR4_C	1
+flux_14_OUT	k1_4*RiiP_C - k4_1*RiiP*C	µM/s
+flux_12_OUT	k1_2*(RiiP_C*cAMP) - k2_1*RiiP_C_cAMP	µM/s
+flux_43_OUT	k4_3*(cAMP*RiiP) - k3_4*RiiP_cAMP	µM/s
+flux_23_OUT	k2_3*RiiP_C_cAMP - k3_2*RiiP_cAMP*C	µM/s
+flux_78_OUT	k7_8*Rii_cAMP - k8_7*cAMP*Rii	µM/s
+flux_56_OUT	k5_6*(Rii_C*cAMP) - k6_5*Rii_C_cAMP	µM/s
+flux_76_OUT	k7_6*(Rii_cAMP*C) - k6_7*Rii_C_cAMP	µM/s
+flux_58_OUT	k5_8*Rii_C - k8_5*Rii*C	µM/s
+flux_44p_OUT	k4_4p*(RiiP*CaN) - k4p_4*RiiP_CaN	µM/s
+flux_33p_OUT	k3_3p*(CaN*RiiP_cAMP) - k3p_3*RiiP_cAMP_CaN	µM/s
+flux_1_OUT	kf_C_AKAR4*(C*AKAR4) - kb_C_AKAR4*AKAR4_C	µM/s
