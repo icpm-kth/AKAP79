@@ -1,9 +1,6 @@
 #!/usr/bin/env Rscript
 ## ----setup--------------------------------------------------------------------
 library(uqsa)
-library(parallel)
-library(rgsl)
-library(SBtabVFGEN)
 library(pbdMPI)
 
 Branch <- system2("git",c("branch","--show-current"),stdout=TRUE)
@@ -20,7 +17,7 @@ scale <- \(x) as.integer(round(log10(x))+1)
 # random number seed:
 
 set.seed(137*r + 1337*cs)
-R <- round(cs/2)
+R <- round(cs)
 
 N <- 10000
 h <- 1e-2
@@ -49,119 +46,57 @@ Hash <- digest::sha1(x=c(N,R,cycl,r,cs,beta))
 shortHash <- substr(Hash,1,8)
 
 ## ----label="SBtab content"----------------------------------------------------
-modelFiles <- dir("..",pattern="[.]tsv$",full.names=TRUE)
-sb <- SBtabVFGEN::sbtab_from_tsv(modelFiles,verbose=FALSE)
+m <- model_from_tsv("..")
+o <- as_ode(m) |> write_and_compile()
+ex<- experiments(m,o)
 
-suppressMessages(
-	modelName <- checkModel(
-		comment(sb),
-		sprintf("./%s.so",comment(sb))
-	)
-)
-
-experiments <- sbtab.data(sb)
-
-for (i in seq_along(experiments)){
-	t_ <- experiments[[i]]$outputTimes
-	nt <- length(t_)
-	D <- t(experiments[[i]]$outputValues)
-	D[is.na(D)] <- 0.0
-	SD <- t(experiments[[i]]$errorValues) ## or: D*0.05+apply(D,1,FUN=max,na.rm=TRUE)*0.05
-	SD[is.na(SD)] <- Inf
-	experiments[[i]]$time <- t_
-	experiments[[i]]$data <- D
-	experiments[[i]]$stdv <- SD
-}
-
-options(mc.cores = length(experiments))
+options(mc.cores = length(ex))
 ## ----default------------------------------------------------------------------
-n <- length(experiments[[1]]$input)
+n <- length(ex[[1]]$input)
 
-stopifnot(all(startsWith(trimws(sb$Parameter[["!Scale"]]),"log10")))
-Median <- sb$Parameter[["!Median"]]
-parMCMC <- sb$Parameter[["!DefaultValue"]]  # this already is in log10-space
-stdv <- sb$Parameter[["!Std"]]              # this as well
+median <- m$Parameter$median
+p0 <- values(m$Parameter)        # this already is in log10-space
+stdv <- uncertainty(m$Parameter) # this as well
 if (is.null(stdv) || any(!is.numeric(stdv)) || any(is.na(stdv))) {
-	warning("no standard error («!Std» field) in 'SBtab$Parameter'")
-	stdv <- parMCMC*0.5 + 0.5 + 0.5*max(parMCMC)
+	warning("no standard error («stdv» field) in model files")
+	stdv <- p0*0.5 + 0.5 + 0.5*max(p0)
 }
-dprior <- dNormalPrior(mean=Median,sd=stdv)
-rprior <- rNormalPrior(mean=Median,sd=stdv)
-gprior <- gradLog_NormalPrior(mean=Median,sd=stdv)
+dprior <- dNormalPrior(mean=median,sd=stdv)
+rprior <- rNormalPrior(mean=median,sd=stdv)
+gprior <- gNormalPrior(mean=median,sd=stdv)
 
-## log-likelihood
-llf <- function(parMCMC){
-	return(sum(sapply(attr(parMCMC,"simulations"),\(y) y$logLikelihood)))
-}
-
-## gradient of the log-likelihood
-gllf <- function(parMCMC){
-	i <- seq_along(parMCMC)
-	J <- log10ParMapJac(parMCMC)
-	return(as.numeric(rowSums(sapply(attr(parMCMC,"simulations"),\(y) y$gradLogLikelihood))[i] %*% J))
-}
-
-## Fisher Information
-fi <- function(parMCMC){
-	i <- seq_along(parMCMC)
-	J <- log10ParMapJac(parMCMC)
-	fi <- rowSums(sapply(attr(parMCMC,"simulations"),\(y) y$FisherInformation[i,i,1],simplify="array"),dims=2) # sums over 3rd dimension
-	return(t(J) %*% fi %*% J)
-}
-
-fiPrior <- solve(diag(stdv, length(parMCMC)))
+fiPrior <- solve(diag(stdv, length(p0)))
 
 ## ----simulate-----------------------------------------------------------------
-sim <- simfi(experiments,modelName,log10ParMap)
+sim <- simfi(ex,o,log10ParMap)
 
 X <- NULL # this is to suppress one intial warning
 sampleSize <- round(exp(seq(log(1000),log(N),length.out=cycl)))
 
 ## ----sample-------------------------------------------------------------------
-smmala <- mcmcUpdate(
+smmala <- smmala_update(
 	simulate=sim,
-	experiments=experiments,
-	logLikelihood=llf,
 	dprior=dprior,
-	gradLogLikelihood=gllf,
 	gprior=gprior,
-	fisherInformation=fi,
 	fisherInformationPrior=fiPrior
 )
-serialSMMALA <- mcmc(smmala)
-ptSMMALA <- mcmc_mpi(smmala,comm=comm,swapFunc=pbdMPI_bcast_reduce_temperatures)
 
+serial_smmala <- mcmc(smmala)
+ptSMMALA <- mcmc_mpi(smmala,comm)
+parMCMC <- p0
 for (i in seq(cycl)){
 	rm(X)
-	x <- mcmcInit(
+	x <- mcmc_init(
 		beta,
 		parMCMC,
 		simulate=sim,
-		logLikelihood=llf,
-		dprior,
-		gllf,
-		gprior,
-		fi
+		dprior=dprior,
+		gradLogLikelihood = uqsa::gllf(log10ParMapJac),
+		gprior=gprior,
+		fisherInformation= uqsa::fi(log10ParMapJac)
 	)
 	if (i < round(cycl/2)){
-		for (k in seq(5)){
-			s <- serialSMMALA(x,100,h)
-			ar <- attr(s,"acceptanceRate")
-			ml <- max(attr(s,"logLikelihood"))
-			message(
-				sprintf("[smmala-r%0*ic%0*ik%i] h=%6g, a=%.2f, β=%7g, ml=%g",
-					as.integer(round(log10(cs)))+1,as.integer(r),
-					as.integer(round(log10(cycl)))+1,as.integer(i),
-					k,
-					h,
-					ar,
-					beta,
-					ml
-				)
-			)
-			h <- h * (0.5 + ar^4/(0.5^4 + ar^4)) # 0.5 is the target acceptance value
-			x <- attr(s,"lastPoint")
-		}
+		h <- tune_step_size(serial_smmala,x,h=1e-7)
 	}
 	pbdMPI::barrier()
 	## This is where the main amount of work is done:
@@ -173,7 +108,7 @@ for (i in seq(cycl)){
 	)
 	sid <- round(i*cs+r) # a sequential id number that increases with iteration i and rank
 	maxsid <- round(cycl*cs+r)
-	sampleFile=sprintf("%s-%0*x%s-cycle-%0*i-rank-%0*i-of-%0*i.RDS",
+	sampleFile=sprintf("%s-%0*x%s-cycle-%0*i-rank-%0*i-of-%0*i.rds",
 		commonName,
 		scale(maxsid),sid,
 		shortHash,
@@ -181,15 +116,14 @@ for (i in seq(cycl)){
 		scale(cs),r,
 		scale(cs),cs)
 	saveRDS(s,file=sampleFile)
-	saveRDS(s,file=sampleFile)
 	## free up memory for next sample
 	ar <- as.integer(round(100*attr(s,"acceptanceRate")))
 	sr <- as.integer(round(100*attr(s,"swapRate")))
 	rm(s)
 	gc()
 	pbdMPI::barrier()
-	f <- dir(pattern=sprintf("^%s-.*-rank-[0-9]+-of-%0*i[.]RDS$",commonName,scale(cs),cs))
-	X <- uqsa::gatherSample(f,beta)
+	f <- dir(pattern=sprintf("^%s-.*-rank-[0-9]+-of-%0*i[.]rds$",commonName,scale(cs),cs))
+	X <- gatherSample(f,beta)
 	effar <- as.integer(round(100*mean(diff(sort(attr(X,"logLikelihood")))>1e-14)))
 	attr(X,"beta") <- beta
 	parMCMC <- as.numeric(tail(X,1))
@@ -207,7 +141,7 @@ for (i in seq(cycl)){
 		)
 	)
 }
-saveRDS(X,file=sprintf("%s-final-sample-%i-%i-lb100-%i.RDS",PREFIX,r,cs,round(log(beta)*100)))
+saveRDS(X,file=sprintf("%s-final-sample-%i-%i-lb100-%i.rds",PREFIX,r,cs,round(log(beta)*100)))
 time_ <- difftime(Sys.time(),start_time,units="min")
 print(time_)
 finalize()

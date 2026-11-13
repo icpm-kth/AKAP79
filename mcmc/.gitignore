@@ -1,2 +1,3 @@
+*.rds
+*.[Rr][Dd]ata
 *.RDS
-*.Rdata
