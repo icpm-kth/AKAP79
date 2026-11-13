@@ -39,12 +39,12 @@ for (j in seq(2)){
 	X <- pt(x,N,h)                 # the main amount of work is done here
 	saveRDS(X,file=rank_file.rds)
 	pbdMPI::barrier()
-	f <- dir(TMPDIR,pattern=sprintf("^AKAP79-pt-smmala-sample-%i-rank-.*rds$",j),full.names=TRUE)
+	f <- dir(TMPDIR,pattern=sprintf("^AKAP79-pt-metropolis-sample-%i-rank-.*rds$",j),full.names=TRUE)
 	Z <- uqsa::gatherSample(f,beta) # <- we only want this value of beta, in this rank's workspace
-	ordered_sample.rds <- file.path(TMPDIR,sprintf("AKAP79-temperature-ordered-pt-smmala-sample-%i-for-rank-%i.rds",j,r))
+	ordered_sample.rds <- file.path(TMPDIR,sprintf("AKAP79-temperature-ordered-pt-metropolis-sample-%i-for-rank-%i.rds",j,r))
 	saveRDS(Z,file=ordered_sample.rds)
-	x <- mcmc_init(beta,as.numeric(tail(Z,1)),attr(RWM,"sim"),dprior=dprior)
-	## clean up this loop's intermediate work.
+	p0 <- as.numeric(tail(Z,1))
+	x <- metropolis_init(p0,m,o,ex,comm=comm,beta=beta)
 	file.remove(rank_file.rds)
 }
 time_ <- difftime(Sys.time(),start_time,units="min")
